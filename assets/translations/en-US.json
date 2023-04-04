@@ -1,0 +1,13 @@
+{
+  "appName": "MangaDex",
+  "signInMessage": "Sign in to your account",
+  "loginFieldLabel": "Username or email",
+  "passwordFieldLabel": "Password",
+  "rememberMe": "Remember me",
+  "forgotPassword": "Forgot Password?",
+  "signInButton": "Sign In",
+  "tryAnotherWaySignIn": "Try Another Way",
+  "newUserQuestion": "New user?",
+  "register": "Register",
+  "validationRequired": "{field} is required"
+}

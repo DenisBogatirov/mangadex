@@ -46,3 +46,4 @@ app.*.map.json
 **.g.dart
 **.gr.dart
 lib/infrastructure/di.config.dart
+lib/infrastructure/mangadex_assets.dart

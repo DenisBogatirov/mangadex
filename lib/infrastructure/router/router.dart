@@ -1,6 +1,8 @@
+// Package imports:
 import 'package:auto_route/auto_route.dart';
 import 'package:injectable/injectable.dart';
 
+// Project imports:
 import 'router.gr.dart';
 
 @Singleton()

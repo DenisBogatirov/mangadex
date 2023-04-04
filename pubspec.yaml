@@ -5,6 +5,7 @@ version: 1.0.0+1
 
 environment:
   sdk: '>=2.19.6 <3.0.0'
+  flutter: '3.7.9'
 
 dependencies:
   flutter:
@@ -22,9 +23,15 @@ dependencies:
   smartstruct: ^1.4.0
   provider: ^6.0.5
   equatable: ^2.0.5
-  reactive_forms: ^14.3.0
+  # can't use latest because of conflict with easy_localization (intl to 0.18.0)
+  # current latest 14.3.0
+  reactive_forms: ^14.1.0
   url_launcher: ^6.1.10
   shared_preferences: ^2.1.0
+  google_fonts: ^4.0.3
+  flutter_svg: ^2.0.4
+  easy_localization: ^3.0.1
+  hexcolor: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -35,7 +42,7 @@ dev_dependencies:
   retrofit_generator: ^6.0.0+1
   injectable_generator: ^2.1.5
   json_serializable: ^6.6.1
-  auto_route_generator: ^6.0.2
+  auto_route_generator: ^6.0.3
   smartstruct_generator: ^1.4.0
   import_sorter: ^4.6.0
   assets_gen: ^1.5.0
@@ -44,6 +51,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/translations/
 
 import_sorter:
   ignored_files:
@@ -55,3 +63,5 @@ assets_gen:
   gen_package_path: false
   code_style: lowerCamelCase
   with_file_extension_name: false
+  exclude:
+    - assets/translations/*
