@@ -1,7 +1,7 @@
 {
   "appName": "MangaDex",
   "signInMessage": "Sign in to your account",
-  "loginFieldLabel": "Username or email",
+  "signInFieldLabel": "Username or email",
   "passwordFieldLabel": "Password",
   "rememberMe": "Remember me",
   "forgotPassword": "Forgot Password?",
@@ -9,5 +9,7 @@
   "tryAnotherWaySignIn": "Try Another Way",
   "newUserQuestion": "New user?",
   "register": "Register",
-  "validationRequired": "{field} is required"
+  "validationRequired": "{field} is required",
+  "passwordLengthValidation": "Password must be at least 8 characters long",
+  "invalidSignInCredentials": "Invalid username or password"
 }

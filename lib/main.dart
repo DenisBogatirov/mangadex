@@ -7,7 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 // Project imports:
-import 'package:mangadex/infrastructure/di.dart';
+import 'package:mangadex/infrastructure/di/di.dart';
 import 'package:mangadex/infrastructure/router/router.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 import 'package:mangadex/theme/mangadex_theme.dart';
@@ -15,7 +15,7 @@ import 'package:mangadex/theme/mangadex_theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  configureDependencies();
+  await configureDependencies();
 
   runApp(
     EasyLocalization(

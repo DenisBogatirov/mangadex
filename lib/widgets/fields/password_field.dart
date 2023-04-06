@@ -13,6 +13,7 @@ final _defaultValidationMessages = {
   ValidationMessage.required: (error) => LocaleKeys.validationRequired.tr(
         namedArgs: {"field": LocaleKeys.passwordFieldLabel.tr()},
       ),
+  ValidationMessage.minLength: (error) => LocaleKeys.passwordLengthValidation.tr(),
 };
 
 class PasswordField extends StatelessWidget {

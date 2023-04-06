@@ -10,10 +10,10 @@ import 'package:mangadex/infrastructure/mangadex_urls.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 import 'package:mangadex/widgets/text_link.dart';
 
-class LoginAdditionalActions extends StatelessWidget {
+class SignInAdditionalActions extends StatelessWidget {
   final String rememberMeControlName;
 
-  const LoginAdditionalActions({
+  const SignInAdditionalActions({
     super.key, required this.rememberMeControlName,
   });
 

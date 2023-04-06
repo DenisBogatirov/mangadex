@@ -9,27 +9,37 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 import 'package:mangadex/widgets/mangadex_text_field.dart';
 
+class UsernameValidationMessages {
+  static const invalid = 'invalid';
+}
+
 final _defaultValidationMessages = {
   ValidationMessage.required: (error) => LocaleKeys.validationRequired.tr(
-        namedArgs: {"field": LocaleKeys.loginFieldLabel.tr()},
+        namedArgs: {"field": LocaleKeys.signInFieldLabel.tr()},
       ),
+  UsernameValidationMessages.invalid: (error) => LocaleKeys.invalidSignInCredentials.tr(),
 };
 
 class UsernameEmailField extends StatelessWidget {
   final String formControlName;
+  final Map<String, ValidationMessageFunction>? validationMessages;
 
-  const UsernameEmailField({
+  UsernameEmailField({
     Key? key,
     required this.formControlName,
-  })  : super(key: key);
+    Map<String, ValidationMessageFunction>? validationMessages,
+  })  : validationMessages = {}
+          ..addAll(_defaultValidationMessages)
+          ..addAll(validationMessages ?? {}),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MangadexReactiveFormField(
       formControlName: formControlName,
-      validationMessages: _defaultValidationMessages,
+      validationMessages: validationMessages,
       decoration: InputDecoration(
-        labelText: LocaleKeys.loginFieldLabel.tr(),
+        labelText: LocaleKeys.signInFieldLabel.tr(),
       ),
     );
   }

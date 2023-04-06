@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:auto_route/auto_route.dart';
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 // Project imports:
 import 'package:mangadex/theme/mangadex_theme.dart';
@@ -42,8 +43,15 @@ class TextLink extends StatelessWidget {
     final textStyle = context.theme.textTheme.titleMedium!.copyWith(color: context.theme.colorScheme.primary);
 
     return GestureDetector(
-      onTap: () {
-        print(destinationScreen ?? destinationUrl);
+      onTap: () async {
+        if (destinationType == TextLinkDestination.url) {
+          final url = Uri.parse(destinationUrl!);
+          if (await url_launcher.canLaunchUrl(url)) {
+            url_launcher.launchUrl(url);
+          }
+        } else {
+          debugPrint(destinationScreen!.toString());
+        }
       },
       child: Text(
         text,
