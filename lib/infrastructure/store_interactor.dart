@@ -1,6 +1,6 @@
 // Package imports:
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 enum StoreInteractorKeys {
   sessionToken('SESSION_TOKEN'),
@@ -12,38 +12,42 @@ enum StoreInteractorKeys {
 }
 
 class StoreInteractor {
-  final SharedPreferences _sharedPreferences;
+  final FlutterSecureStorage _secureStorage;
 
   static Future<StoreInteractor> create() async {
-    final sharedPreferences = await SharedPreferences.getInstance();
+    const secureStorage = FlutterSecureStorage(
+      aOptions: AndroidOptions(
+        encryptedSharedPreferences: true,
+      ),
+    );
 
-    return StoreInteractor._(sharedPreferences);
+    return StoreInteractor._(secureStorage);
   }
 
-  StoreInteractor._(this._sharedPreferences);
+  StoreInteractor._(this._secureStorage);
 
   Future<String?> getSessionToken() async {
-    return _sharedPreferences.getString(StoreInteractorKeys.sessionToken.name);
+    return _secureStorage.read(key: StoreInteractorKeys.sessionToken.name);
   }
 
   Future<String?> getRefreshToken() async {
-    return _sharedPreferences.getString(StoreInteractorKeys.refreshToken.name);
+    return _secureStorage.read(key: StoreInteractorKeys.refreshToken.name);
   }
 
   Future<void> setSessionToken(String token) async {
-    await _sharedPreferences.setString(StoreInteractorKeys.sessionToken.name, token);
+    await _secureStorage.write(key: StoreInteractorKeys.sessionToken.name, value: token);
   }
 
   Future<void> setRefreshToken(String token) async {
-    await _sharedPreferences.setString(StoreInteractorKeys.refreshToken.name, token);
+    await _secureStorage.write(key: StoreInteractorKeys.refreshToken.name, value: token);
   }
 
   Future<void> removeSessionToken() async {
-    await _sharedPreferences.remove(StoreInteractorKeys.sessionToken.name);
+    await _secureStorage.delete(key: StoreInteractorKeys.sessionToken.name);
   }
 
   Future<void> removeRefreshToken() async {
-    await _sharedPreferences.remove(StoreInteractorKeys.refreshToken.name);
+    await _secureStorage.delete(key: StoreInteractorKeys.refreshToken.name);
   }
 }
 

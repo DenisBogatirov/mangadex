@@ -25,13 +25,12 @@ class UsernameEmailField extends StatelessWidget {
   final Map<String, ValidationMessageFunction>? validationMessages;
 
   UsernameEmailField({
-    Key? key,
+    super.key,
     required this.formControlName,
     Map<String, ValidationMessageFunction>? validationMessages,
   })  : validationMessages = {}
           ..addAll(_defaultValidationMessages)
-          ..addAll(validationMessages ?? {}),
-        super(key: key);
+          ..addAll(validationMessages ?? {});
 
   @override
   Widget build(BuildContext context) {

@@ -11,5 +11,6 @@
   "register": "Register",
   "validationRequired": "{field} is required",
   "passwordLengthValidation": "Password must be at least 8 characters long",
-  "invalidSignInCredentials": "Invalid username or password"
+  "invalidSignInCredentials": "Invalid username or password",
+  "signOut": "Sign Out"
 }

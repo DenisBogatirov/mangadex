@@ -37,7 +37,9 @@ enum SignInField {
 
 @RoutePage()
 class SignInScreen extends StatefulWidget implements AutoRouteWrapper {
-  const SignInScreen({Key? key}) : super(key: key);
+  const SignInScreen({
+    super.key,
+  });
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();

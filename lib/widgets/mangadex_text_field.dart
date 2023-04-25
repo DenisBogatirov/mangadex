@@ -71,7 +71,7 @@ class MangadexReactiveFormField<T> extends StatelessWidget {
   final ReactiveFormFieldCallback<T>? onChanged;
 
   const MangadexReactiveFormField({
-    Key? key,
+    super.key,
     this.formControlName,
     this.formControl,
     this.validationMessages,
@@ -128,7 +128,7 @@ class MangadexReactiveFormField<T> extends StatelessWidget {
     this.scribbleEnabled = true,
     this.decoration = const InputDecoration(),
     this.obscuringCharacter = '•',
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

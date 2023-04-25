@@ -25,6 +25,8 @@ class MangaDexColors {
   static Color darkInputBackground = const Color.fromRGBO(61, 65, 74, 1);
   static Color lightInputBackground = const Color.fromRGBO(229, 231, 235, 1);
   static Color errorInputBackground = HexColor('#6c3c3c');
+
+  static Color dividerColor = HexColor('#e5e7eb');
 }
 
 final _darkColorScheme = ColorScheme(
@@ -88,7 +90,22 @@ ThemeData buildTheme(Brightness brightness) {
   });
 
   return baseTheme.copyWith(
-    textTheme: textTheme,
+    textTheme: textTheme.copyWith(
+      titleLarge: textTheme.titleLarge!.copyWith(
+        fontWeight: FontWeight.w800,
+      ),
+      labelLarge: textTheme.labelLarge!.copyWith(
+        fontWeight: FontWeight.w600,
+        fontSize: 16,
+      ),
+    ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: baseTheme.colorScheme.background,
+      shadowColor: Colors.transparent,
+      actionsIconTheme: baseTheme.iconTheme.copyWith(
+        color: baseTheme.colorScheme.onBackground,
+      )
+    ),
     dividerTheme: const DividerThemeData(
       color: Colors.transparent,
       space: 16.0,
@@ -103,6 +120,11 @@ ThemeData buildTheme(Brightness brightness) {
       isDense: true,
       contentPadding: const EdgeInsets.all(10),
     ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: baseTheme.colorScheme.onBackground,
+      ),
+    )
   );
 }
 

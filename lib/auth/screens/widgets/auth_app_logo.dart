@@ -11,7 +11,9 @@ import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 import 'package:mangadex/theme/mangadex_theme.dart';
 
 class AuthAppLogo extends StatelessWidget {
-  const AuthAppLogo({Key? key}) : super(key: key);
+  const AuthAppLogo({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
