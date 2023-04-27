@@ -14,9 +14,9 @@ const _defaultTimeout = Duration(seconds: 30);
 @LazySingleton()
 class MangaDexDio with DioMixin implements Dio {
   MangaDexDio(
-      AppEnv appEnv,
-      List<Interceptor> interceptors,
-      ) {
+    AppEnv appEnv,
+    List<Interceptor> interceptors,
+  ) {
     options = BaseOptions(
       baseUrl: appEnv.baseApiUrl,
       followRedirects: false,
@@ -30,18 +30,16 @@ class MangaDexDio with DioMixin implements Dio {
 
   @factoryMethod
   factory MangaDexDio.create(
-      AppEnv appEnv,
-      PrettyDioLogger prettyDioLogger,
-      ) =>
+    AppEnv appEnv,
+    PrettyDioLogger prettyDioLogger,
+  ) =>
       MangaDexDio(
         appEnv,
-        [
-          prettyDioLogger,
-        ],
+        [prettyDioLogger],
       );
 
   void _setupInterceptors(List<Interceptor> interceptorList) {
-    interceptorList.whereType<RefreshTokenInterceptor>().forEach((element) => element.set(this));
+    interceptorList.whereType<RefreshTokenInterceptor>().forEach((element) => element.setAuthorizedDioClient(this));
     interceptors.addAll(interceptorList);
   }
 }
@@ -49,13 +47,16 @@ class MangaDexDio with DioMixin implements Dio {
 @LazySingleton()
 class AuthorizedMangaDexDio extends MangaDexDio {
   AuthorizedMangaDexDio(
-      AppEnv appEnv,
-      SessionTokenInterceptor sessionTokenInterceptor,
-      RefreshTokenInterceptor refreshTokenInterceptor,
-      PrettyDioLogger prettyDioLogger,
-      ) : super(appEnv, [
-    prettyDioLogger,
-    sessionTokenInterceptor,
-    refreshTokenInterceptor,
-  ]);
+    AppEnv appEnv,
+    SessionTokenInterceptor sessionTokenInterceptor,
+    RefreshTokenInterceptor refreshTokenInterceptor,
+    PrettyDioLogger prettyDioLogger,
+  ) : super(
+          appEnv,
+          [
+            prettyDioLogger,
+            sessionTokenInterceptor,
+            refreshTokenInterceptor,
+          ],
+        );
 }

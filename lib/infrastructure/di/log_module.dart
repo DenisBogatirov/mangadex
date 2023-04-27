@@ -11,8 +11,8 @@ const _maxLogWidth = 120;
 abstract class LogModule {
   @injectable
   PrettyDioLogger get prettyDioLogger => PrettyDioLogger(
-    requestHeader: true,
-    requestBody: true,
+    responseBody: false,
+    request: false,
     maxWidth: _maxLogWidth,
     logPrint: logPrinter,
   );

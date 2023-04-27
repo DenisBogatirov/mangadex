@@ -123,7 +123,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
     try {
       await context.read<SignInCubit>().signIn(payload);
-      print('Success');
     } on WrongSignInCredentialsException catch (_) {
       formGroup.control(SignInField.username.value).setErrors({UsernameValidationMessages.invalid: true});
     } catch (e) {

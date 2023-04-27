@@ -25,7 +25,7 @@ class SignInDTO {
 class UserTokenResponseDTO extends ResponseWrapperDTO {
   final TokenDTO token;
 
-  UserTokenResponseDTO(super.result, this.token);
+  UserTokenResponseDTO({ required super.result, required this.token });
 
   factory UserTokenResponseDTO.fromJson(Map<String, dynamic> json) => _$UserTokenResponseDTOFromJson(json);
 }
@@ -39,4 +39,13 @@ class TokenDTO {
   TokenDTO(this.session, this.refresh);
 
   factory TokenDTO.fromJson(Map<String, dynamic> json) => _$TokenDTOFromJson(json);
+}
+
+@JsonSerializable(createFactory: false)
+class RefreshTokenDTO {
+  final String token;
+
+  RefreshTokenDTO(this.token);
+
+  Map<String, dynamic> toJson() => _$RefreshTokenDTOToJson(this);
 }
