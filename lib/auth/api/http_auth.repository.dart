@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 // Project imports:
-import 'package:mangadex/auth/api/auth_client.dart';
+import 'package:mangadex/auth/api/auth.client.dart';
 import 'package:mangadex/auth/api/dto/sign_in.dto.dart';
 import 'package:mangadex/auth/domain/auth.dart';
 import 'package:mangadex/auth/domain/auth.exceptions.dart';
@@ -61,5 +61,13 @@ class HttpAuthRepository implements AuthRepository {
 
       rethrow;
     }
+  }
+
+  @override
+  Future<void> refreshToken(String refreshToken) async {
+    final response = await _client.refresh(RefreshTokenDTO(refreshToken));
+
+    await _storeInteractor.setSessionToken(response.token.session);
+    await _storeInteractor.setRefreshToken(response.token.refresh);
   }
 }

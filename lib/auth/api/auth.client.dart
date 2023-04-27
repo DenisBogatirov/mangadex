@@ -7,7 +7,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:mangadex/auth/api/dto/sign_in.dto.dart';
 import 'package:mangadex/infrastructure/api_client/mangadex_dio.dart';
 
-part 'auth_client.g.dart';
+part 'auth.client.g.dart';
 
 @LazySingleton()
 @RestApi()
@@ -17,4 +17,7 @@ abstract class AuthClient {
 
   @POST('/auth/login')
   Future<UserTokenResponseDTO> signIn(@Body() SignInDTO dto);
+
+  @POST('/auth/refresh')
+  Future<UserTokenResponseDTO> refresh(@Body() RefreshTokenDTO dto);
 }

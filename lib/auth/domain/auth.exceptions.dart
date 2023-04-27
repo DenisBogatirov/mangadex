@@ -11,3 +11,11 @@ class NotSignedInException implements Exception {
   @override
   String toString() => message;
 }
+
+
+class ExpiredTokenException implements Exception {
+  final message = 'Both session and refresh tokens are expired';
+
+  @override
+  String toString() => message;
+}
