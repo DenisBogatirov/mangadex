@@ -2,13 +2,18 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 // Project imports:
 import 'package:mangadex/infrastructure/mangadex_assets.dart';
+import 'package:mangadex/infrastructure/mangadex_urls.dart';
+import 'package:mangadex/infrastructure/router/router.gr.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 import 'package:mangadex/theme/mangadex_theme.dart';
+import 'package:mangadex/user/domain/user.dart';
 import 'package:mangadex/user/screens/widgets/role_chip.dart';
 import 'package:mangadex/widgets/svg_icon.dart';
 import 'package:mangadex/widgets/svg_icon_button.dart';
@@ -40,6 +45,7 @@ class UserDrawer extends StatelessWidget {
           }
 
           final user = (state as UserDrawerReady).user;
+          final isGuest = user is GuestUser;
           final List<Widget> roles = [];
 
           for (var role in user.roles) {
@@ -61,31 +67,55 @@ class UserDrawer extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       width: double.infinity,
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           UserAvatar(url: user.avatar, radius: 32),
                           const Divider(),
-                          Text(
-                            user.username,
-                            style: context.theme.textTheme.titleLarge,
+                          Center(
+                            child: Text(
+                              user.username,
+                              style: context.theme.textTheme.titleLarge,
+                            ),
                           ),
                           Wrap(
+                            alignment: WrapAlignment.center,
                             children: roles,
                           ),
                           Divider(
                             color: MangaDexColors.dividerColor,
                             height: 32,
                           ),
-                          TextButton(
-                            onPressed: () => context.read<UserDrawerCubit>().signOut(),
-                            child: Row(
-                              children: [
-                                const SvgIcon(asset: Assets.assetsSignOutIcon),
-                                const VerticalDivider(),
-                                Text(LocaleKeys.signOut.tr()),
-                              ],
+                          if (isGuest) ...{
+                            ElevatedButton(
+                              onPressed: () {
+                                scaffold.closeEndDrawer();
+                                context.router.push(const SignInRoute());
+                              },
+                              child: Text(LocaleKeys.signInButton.tr()),
                             ),
-                          )
+                            TextButton(
+                              onPressed: () async {
+                                if (await url_launcher.canLaunchUrl(MangaDexUrls.register)) {
+                                  url_launcher.launchUrl(
+                                    MangaDexUrls.register,
+                                    mode: url_launcher.LaunchMode.externalApplication,
+                                  );
+                                }
+                              },
+                              child: Text(LocaleKeys.register.tr()),
+                            ),
+                          } else ...{
+                            TextButton(
+                              onPressed: () => context.read<UserDrawerCubit>().signOut(),
+                              child: Row(
+                                children: [
+                                  const SvgIcon(asset: Assets.assetsSignOutIcon),
+                                  const VerticalDivider(),
+                                  Text(LocaleKeys.signOut.tr()),
+                                ],
+                              ),
+                            ),
+                          }
                         ],
                       ),
                     )

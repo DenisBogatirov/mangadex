@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:auto_route/auto_route.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
+import 'package:url_launcher/url_launcher_string.dart';
 
 // Project imports:
 import 'package:mangadex/theme/mangadex_theme.dart';
@@ -14,7 +15,7 @@ class TextLink extends StatelessWidget {
   final String text;
   final TextLinkDestination destinationType;
   final PageInfo? destinationScreen;
-  final String? destinationUrl;
+  final Uri? destinationUrl;
 
   const TextLink(
     this.text, {
@@ -45,9 +46,8 @@ class TextLink extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         if (destinationType == TextLinkDestination.url) {
-          final url = Uri.parse(destinationUrl!);
-          if (await url_launcher.canLaunchUrl(url)) {
-            url_launcher.launchUrl(url);
+          if (await url_launcher.canLaunchUrl(destinationUrl!)) {
+            url_launcher.launchUrl(destinationUrl!);
           }
         } else {
           debugPrint(destinationScreen!.toString());
