@@ -7,9 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 // Project imports:
-import 'package:mangadex/theme/mangadex_theme.dart';
-import 'package:mangadex/user/screens/widgets/user_drawer/user_drawer.dart';
-import 'package:mangadex/user/screens/widgets/user_drawer/user_drawer_cubit.dart';
+import 'package:mangadex/user/screens/user_drawer/user_drawer.dart';
+import 'package:mangadex/user/screens/user_drawer/user_drawer_cubit.dart';
 import 'package:mangadex/widgets/drawer_container.dart';
 import 'widgets/mangadex_app_bar.dart';
 
