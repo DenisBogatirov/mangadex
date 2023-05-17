@@ -13,5 +13,11 @@
   "passwordLengthValidation": "Password must be at least 8 characters long",
   "invalidSignInCredentials": "Invalid username or password",
   "signOut": "Sign Out",
-  "userRolesUser": "User"
+  "userRolesUser": "User",
+  "settings": "Settings",
+  "theme": "Theme",
+  "interface": "Interface",
+  "betaLabel": "BETA",
+  "chapterLanguages": "Chapter Languages",
+  "contentFilter": "Content Filter"
 }

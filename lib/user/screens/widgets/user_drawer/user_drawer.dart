@@ -14,12 +14,12 @@ import 'package:mangadex/infrastructure/router/router.gr.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 import 'package:mangadex/theme/mangadex_theme.dart';
 import 'package:mangadex/user/domain/user.dart';
+import 'package:mangadex/user/screens/widgets/drawer_icon_button.dart';
 import 'package:mangadex/user/screens/widgets/role_chip.dart';
+import 'package:mangadex/widgets/drawer_container.dart';
 import 'package:mangadex/widgets/svg_icon.dart';
 import 'package:mangadex/widgets/svg_icon_button.dart';
 import 'user_drawer_cubit.dart';
-
-const kDrawerConstraints = BoxConstraints(maxWidth: 320, minWidth: 256, maxHeight: double.infinity);
 
 class UserDrawer extends StatelessWidget {
   const UserDrawer({
@@ -30,12 +30,7 @@ class UserDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final scaffold = Scaffold.of(context);
 
-    return Container(
-      constraints: kDrawerConstraints,
-      height: kDrawerConstraints.maxHeight,
-      decoration: BoxDecoration(
-        color: context.theme.colorScheme.surface,
-      ),
+    return DrawerContainer(
       child: BlocBuilder<UserDrawerCubit, UserDrawerState>(
         builder: (context, state) {
           if (state is UserDrawerInitial) {
@@ -85,6 +80,58 @@ class UserDrawer extends StatelessWidget {
                             color: MangaDexColors.dividerColor,
                             height: 32,
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              DrawerIconButton(
+                                onPressed: () {},
+                                text: LocaleKeys.settings.tr(),
+                                iconAsset: Assets.assetsSettingsIcon,
+                              ),
+                              const VerticalDivider(),
+                              DrawerIconButton(
+                                onPressed: () {},
+                                text: LocaleKeys.theme.tr(),
+                                iconAsset: Assets.assetsDropIcon,
+                              ),
+                            ],
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(LocaleKeys.interface.tr()),
+                                const _BetaLabel(),
+                              ],
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(LocaleKeys.chapterLanguages.tr()),
+                                // TODO: Add flag
+                                const SizedBox(
+                                  width: 24,
+                                  height: 18,
+                                  child: Placeholder(),
+                                ),
+                              ],
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            style: context.theme.textButtonTheme.style?.copyWith(
+                              alignment: Alignment.centerLeft,
+                            ),
+                            child: Text(LocaleKeys.contentFilter.tr()),
+                          ),
+                          Divider(
+                            color: MangaDexColors.dividerColor,
+                            height: 32,
+                          ),
                           if (isGuest) ...{
                             ElevatedButton(
                               onPressed: () {
@@ -105,15 +152,10 @@ class UserDrawer extends StatelessWidget {
                               child: Text(LocaleKeys.register.tr()),
                             ),
                           } else ...{
-                            TextButton(
+                            DrawerIconButton(
                               onPressed: () => context.read<UserDrawerCubit>().signOut(),
-                              child: Row(
-                                children: [
-                                  const SvgIcon(asset: Assets.assetsSignOutIcon),
-                                  const VerticalDivider(),
-                                  Text(LocaleKeys.signOut.tr()),
-                                ],
-                              ),
+                              text: LocaleKeys.signOut.tr(),
+                              iconAsset: Assets.assetsSignOutIcon,
                             ),
                           }
                         ],
@@ -151,6 +193,28 @@ class UserAvatar extends StatelessWidget {
       backgroundColor: Colors.transparent,
       radius: radius,
       child: guestImage,
+    );
+  }
+}
+
+class _BetaLabel extends StatelessWidget {
+  const _BetaLabel();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: context.theme.colorScheme.primary,
+        borderRadius: const BorderRadius.all(Radius.circular(4)),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 6),
+      child: Text(
+        LocaleKeys.betaLabel.tr(),
+        style: context.theme.textTheme.labelSmall?.copyWith(
+          fontWeight: FontWeight.bold,
+          letterSpacing: 0,
+        ),
+      ),
     );
   }
 }

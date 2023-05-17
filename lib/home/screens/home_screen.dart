@@ -10,6 +10,7 @@ import 'package:get_it/get_it.dart';
 import 'package:mangadex/theme/mangadex_theme.dart';
 import 'package:mangadex/user/screens/widgets/user_drawer/user_drawer.dart';
 import 'package:mangadex/user/screens/widgets/user_drawer/user_drawer_cubit.dart';
+import 'package:mangadex/widgets/drawer_container.dart';
 import 'widgets/mangadex_app_bar.dart';
 
 @RoutePage()
@@ -39,13 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
       key: _scaffoldKey,
       appBar: const MangaDexAppBar(),
       drawerEdgeDragWidth: 0,
-      drawer: ConstrainedBox(
-        constraints: kDrawerConstraints,
-        child: Container(
-          color: context.theme.colorScheme.background,
-          child: const SafeArea(
-            child: Placeholder(),
-          ),
+      drawer: const DrawerContainer(
+        child: SafeArea(
+          child: Placeholder(),
         ),
       ),
       endDrawer: const UserDrawer(),
