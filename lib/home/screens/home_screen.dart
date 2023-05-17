@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 // Project imports:
-import 'package:mangadex/user/screens/user_drawer/user_drawer.dart';
-import 'package:mangadex/user/screens/user_drawer/user_drawer_cubit.dart';
+import 'package:mangadex/infrastructure/router/user_drawer_router.dart';
+import 'package:mangadex/user/screens/user_drawer_home/user_drawer_cubit.dart';
 import 'package:mangadex/widgets/drawer_container.dart';
 import 'widgets/mangadex_app_bar.dart';
 
@@ -32,6 +32,7 @@ class HomeScreen extends StatefulWidget implements AutoRouteWrapper {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _drawerRouter = UserDrawerRouter.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Placeholder(),
         ),
       ),
-      endDrawer: const UserDrawer(),
+      endDrawer: DrawerContainer(
+        child: Router.withConfig(
+          restorationScopeId: 'user_drawer_router_id',
+          config: _drawerRouter.config(),
+        ),
+      ),
       body: const SafeArea(child: Placeholder()),
     );
   }

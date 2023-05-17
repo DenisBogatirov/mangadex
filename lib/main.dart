@@ -40,15 +40,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppRouter router = context.read<GetIt>().get();
-
     return MaterialApp.router(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       theme: buildTheme(Brightness.light),
       darkTheme: buildTheme(Brightness.dark),
-      routerConfig: router.config(),
+      routerConfig: AppRouter.instance.config(),
       onGenerateTitle: (context) => LocaleKeys.appName.tr(),
     );
   }

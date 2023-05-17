@@ -22,7 +22,10 @@ class DrawerContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.theme.colorScheme.surface,
       ),
-      child: child,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: child,
+      ),
     );
   }
 }
