@@ -6,8 +6,8 @@ import 'package:auto_route/auto_route.dart';
 
 // Project imports:
 import 'package:mangadex/infrastructure/mangadex_assets.dart';
+import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/router/user_drawer_router.gr.dart';
-import 'package:mangadex/theme/mangadex_theme.dart';
 import 'package:mangadex/widgets/svg_icon_button.dart';
 
 @RoutePage()

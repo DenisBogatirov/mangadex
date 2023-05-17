@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 // Project imports:
-import 'package:mangadex/theme/mangadex_theme.dart';
+import 'package:mangadex/infrastructure/mangadex_theme.dart';
 
 class MangadexReactiveFormField<T> extends StatelessWidget {
   final String? formControlName;

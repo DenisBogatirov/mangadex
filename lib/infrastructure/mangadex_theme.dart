@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+// Project imports:
+import 'package:mangadex/theme/domain/user_theme.dart';
+
 class MangaDexColors {
   static Color primary = HexColor('#ff6740');
   static Color onPrimary = HexColor('#ffffff');
@@ -130,4 +133,16 @@ ThemeData buildTheme(Brightness brightness) {
 
 extension ContextThemeExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
+}
+
+extension UserThemeExtension on ThemeMode {
+  static ThemeMode fromUserTheme(UserTheme userTheme) {
+    switch (userTheme) {
+      case UserTheme.dark: return ThemeMode.dark;
+      case UserTheme.light: return ThemeMode.light;
+      case UserTheme.system:
+      default:
+        return ThemeMode.system;
+    }
+  }
 }

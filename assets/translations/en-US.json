@@ -20,5 +20,10 @@
   "interface": "Interface",
   "betaLabel": "BETA",
   "chapterLanguages": "Chapter Languages",
-  "contentFilter": "Content Filter"
+  "contentFilter": "Content Filter",
+  "themeMode": {
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System"
+  }
 }

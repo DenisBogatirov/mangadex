@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:mangadex/theme/mangadex_theme.dart';
+import 'package:mangadex/infrastructure/mangadex_theme.dart';
 
 class AuthCard extends StatelessWidget {
   final Widget child;

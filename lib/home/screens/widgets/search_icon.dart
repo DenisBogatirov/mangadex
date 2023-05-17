@@ -6,7 +6,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 // Project imports:
 import 'package:mangadex/infrastructure/mangadex_assets.dart';
-import 'package:mangadex/theme/mangadex_theme.dart';
+import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/widgets/svg_icon.dart';
 
 // TODO: Move colors to theme

@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 // Project imports:
 import 'package:mangadex/auth/screens/widgets/auth_app_logo.dart';
-import 'package:mangadex/theme/mangadex_theme.dart';
+import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/widgets/focus_remover.dart';
 
 class AuthContainer extends StatelessWidget {

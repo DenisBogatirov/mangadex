@@ -9,12 +9,12 @@ import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 // Project imports:
 import 'package:mangadex/infrastructure/mangadex_assets.dart';
+import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/mangadex_urls.dart';
 import 'package:mangadex/infrastructure/router/router.dart';
 import 'package:mangadex/infrastructure/router/router.gr.dart';
 import 'package:mangadex/infrastructure/router/user_drawer_router.gr.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
-import 'package:mangadex/theme/mangadex_theme.dart';
 import 'package:mangadex/user/domain/user.dart';
 import 'package:mangadex/user/screens/widgets/drawer_icon_button.dart';
 import 'package:mangadex/user/screens/widgets/role_chip.dart';
@@ -201,6 +201,7 @@ class _BetaLabel extends StatelessWidget {
       child: Text(
         LocaleKeys.betaLabel.tr(),
         style: context.theme.textTheme.labelSmall?.copyWith(
+          color: context.theme.colorScheme.onPrimary,
           fontWeight: FontWeight.bold,
           letterSpacing: 0,
         ),

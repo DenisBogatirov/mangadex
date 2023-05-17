@@ -7,8 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 // Project imports:
 import 'package:mangadex/infrastructure/mangadex_assets.dart';
+import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
-import 'package:mangadex/theme/mangadex_theme.dart';
 
 class AuthAppLogo extends StatelessWidget {
   const AuthAppLogo({

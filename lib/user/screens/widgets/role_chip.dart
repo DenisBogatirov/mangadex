@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 // Project imports:
+import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
-import 'package:mangadex/theme/mangadex_theme.dart';
 import 'package:mangadex/user/domain/user.dart';
 
 const _rolesTranslations = {
