@@ -25,5 +25,12 @@
     "dark": "Dark",
     "light": "Light",
     "system": "System"
-  }
+  },
+  "notImplemented": "Not Implemented",
+  "myProfile": "My Profile",
+  "myFollows": "My Follows",
+  "myLists": "My Lists",
+  "myGroups": "My Groups",
+  "myReports": "My Reports",
+  "announcements": "Announcements"
 }

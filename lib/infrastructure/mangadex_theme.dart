@@ -93,42 +93,42 @@ ThemeData buildTheme(Brightness brightness) {
   });
 
   return baseTheme.copyWith(
-    textTheme: textTheme.copyWith(
-      titleLarge: textTheme.titleLarge!.copyWith(
-        fontWeight: FontWeight.w800,
+      brightness: brightness,
+      textTheme: textTheme.copyWith(
+        titleLarge: textTheme.titleLarge!.copyWith(
+          fontWeight: FontWeight.w800,
+        ),
+        labelLarge: textTheme.labelLarge!.copyWith(
+          fontWeight: FontWeight.w600,
+          fontSize: 16,
+        ),
       ),
-      labelLarge: textTheme.labelLarge!.copyWith(
-        fontWeight: FontWeight.w600,
-        fontSize: 16,
+      appBarTheme: AppBarTheme(
+          backgroundColor: baseTheme.colorScheme.background,
+          shadowColor: Colors.transparent,
+          actionsIconTheme: baseTheme.iconTheme.copyWith(
+            color: baseTheme.colorScheme.onBackground,
+          )),
+      dividerTheme: const DividerThemeData(
+        color: Colors.transparent,
+        space: 16.0,
+        thickness: 1
       ),
-    ),
-    appBarTheme: AppBarTheme(
-      backgroundColor: baseTheme.colorScheme.background,
-      shadowColor: Colors.transparent,
-      actionsIconTheme: baseTheme.iconTheme.copyWith(
-        color: baseTheme.colorScheme.onBackground,
-      )
-    ),
-    dividerTheme: const DividerThemeData(
-      color: Colors.transparent,
-      space: 16.0,
-    ),
-    inputDecorationTheme: InputDecorationTheme(
-      border: const OutlineInputBorder(),
-      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: inputBackground)),
-      disabledBorder: OutlineInputBorder(borderSide: BorderSide(color: inputBackground)),
-      errorBorder: OutlineInputBorder(borderSide: BorderSide(color: MangaDexColors.errorInputBackground)),
-      fillColor: inputBackground,
-      filled: true,
-      isDense: true,
-      contentPadding: const EdgeInsets.all(10),
-    ),
-    textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(
-        foregroundColor: baseTheme.colorScheme.onBackground,
+      inputDecorationTheme: InputDecorationTheme(
+        border: const OutlineInputBorder(),
+        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: inputBackground)),
+        disabledBorder: OutlineInputBorder(borderSide: BorderSide(color: inputBackground)),
+        errorBorder: OutlineInputBorder(borderSide: BorderSide(color: MangaDexColors.errorInputBackground)),
+        fillColor: inputBackground,
+        filled: true,
+        isDense: true,
+        contentPadding: const EdgeInsets.all(10),
       ),
-    )
-  );
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: baseTheme.colorScheme.onBackground,
+        ),
+      ));
 }
 
 extension ContextThemeExtension on BuildContext {
@@ -138,8 +138,10 @@ extension ContextThemeExtension on BuildContext {
 extension UserThemeExtension on ThemeMode {
   static ThemeMode fromUserTheme(UserTheme userTheme) {
     switch (userTheme) {
-      case UserTheme.dark: return ThemeMode.dark;
-      case UserTheme.light: return ThemeMode.light;
+      case UserTheme.dark:
+        return ThemeMode.dark;
+      case UserTheme.light:
+        return ThemeMode.light;
       case UserTheme.system:
       default:
         return ThemeMode.system;

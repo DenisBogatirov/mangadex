@@ -18,8 +18,60 @@ import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 import 'package:mangadex/user/domain/user.dart';
 import 'package:mangadex/user/screens/widgets/drawer_icon_button.dart';
 import 'package:mangadex/user/screens/widgets/role_chip.dart';
+import 'package:mangadex/user/screens/widgets/user_avatar.dart';
 import 'package:mangadex/user/utils/current_user_cubit.dart';
-import 'package:mangadex/widgets/svg_icon.dart';
+
+class _DrawerMenuOption {
+  final String Function() title;
+  final String iconAsset;
+  final PageRouteInfo Function() _destination;
+
+  const _DrawerMenuOption({
+    required this.title,
+    required this.iconAsset,
+    required PageRouteInfo Function() destination,
+  }) : _destination = destination;
+
+  void navigate(BuildContext context) {
+    final router = AppRouter.instance.innerRouterOf<StackRouter>(HomeRoute.name)!;
+    Scaffold.of(context).closeEndDrawer();
+
+    router.replaceAll([_destination()]);
+  }
+}
+
+final _menuOptions = [
+  _DrawerMenuOption(
+    title: () => LocaleKeys.myProfile.tr(),
+    iconAsset: Assets.assetsGuestIcon,
+    destination: () => const NotImplementedRoute(),
+  ),
+  _DrawerMenuOption(
+    title: () => LocaleKeys.myFollows.tr(),
+    iconAsset: Assets.assetsFollowsIcon,
+    destination: () => const NotImplementedRoute(),
+  ),
+  _DrawerMenuOption(
+    title: () => LocaleKeys.myLists.tr(),
+    iconAsset: Assets.assetsListIcon,
+    destination: () => const NotImplementedRoute(),
+  ),
+  _DrawerMenuOption(
+    title: () => LocaleKeys.myGroups.tr(),
+    iconAsset: Assets.assetsGroupIcon,
+    destination: () => const NotImplementedRoute(),
+  ),
+  _DrawerMenuOption(
+    title: () => LocaleKeys.myReports.tr(),
+    iconAsset: Assets.assetsReportIcon,
+    destination: () => const NotImplementedRoute(),
+  ),
+  _DrawerMenuOption(
+    title: () => LocaleKeys.announcements.tr(),
+    iconAsset: Assets.assetsAnnouncementIcon,
+    destination: () => const NotImplementedRoute(),
+  ),
+];
 
 @RoutePage()
 class UserDrawerHomePage extends StatelessWidget {
@@ -46,74 +98,24 @@ class UserDrawerHomePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Center(child: UserAvatar(url: user.avatar, radius: 32)),
-                      const Divider(),
-                      Center(
-                        child: Text(
-                          user.username,
-                          style: context.theme.textTheme.titleLarge,
+                      DrawerUserInfo(user: user),
+                      if (!isGuest) ...{
+                        Divider(
+                          color: MangaDexColors.dividerColor,
+                          height: 32,
                         ),
-                      ),
-                      Wrap(
-                        alignment: WrapAlignment.center,
-                        children: [
-                          for (final role in user.roles) RoleChip(role: role),
-                        ],
-                      ),
+                        for (final menuOption in _menuOptions)
+                          DrawerIconButton(
+                            onPressed: () => menuOption.navigate(context),
+                            iconAsset: menuOption.iconAsset,
+                            text: menuOption.title(),
+                          ),
+                      },
                       Divider(
                         color: MangaDexColors.dividerColor,
                         height: 32,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          DrawerIconButton(
-                            onPressed: () {},
-                            text: LocaleKeys.settings.tr(),
-                            iconAsset: Assets.assetsSettingsIcon,
-                          ),
-                          const VerticalDivider(),
-                          DrawerIconButton(
-                            onPressed: () {
-                              context.router.push(const UserDrawerThemeRoute());
-                            },
-                            text: LocaleKeys.theme.tr(),
-                            iconAsset: Assets.assetsDropIcon,
-                          ),
-                        ],
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(LocaleKeys.interface.tr()),
-                            const _BetaLabel(),
-                          ],
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(LocaleKeys.chapterLanguages.tr()),
-                            // TODO: Add flag
-                            const SizedBox(
-                              width: 24,
-                              height: 18,
-                              child: Placeholder(),
-                            ),
-                          ],
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        style: context.theme.textButtonTheme.style?.copyWith(
-                          alignment: Alignment.centerLeft,
-                        ),
-                        child: Text(LocaleKeys.contentFilter.tr()),
-                      ),
+                      const DrawerSettings(),
                       Divider(
                         color: MangaDexColors.dividerColor,
                         height: 32,
@@ -155,31 +157,6 @@ class UserDrawerHomePage extends StatelessWidget {
   }
 }
 
-class UserAvatar extends StatelessWidget {
-  final double? radius;
-  final String? url;
-
-  const UserAvatar({
-    super.key,
-    this.radius,
-    this.url,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final width = radius != null ? radius! * 2 : null;
-    final image =
-        url != null ? Image.network(url!) : SvgIcon(asset: Assets.assetsGuestIcon, width: width);
-
-    return ClipOval(
-      child: SizedBox.square(
-        dimension: width,
-        child: image,
-      ),
-    );
-  }
-}
-
 class _BetaLabel extends StatelessWidget {
   const _BetaLabel();
 
@@ -199,6 +176,100 @@ class _BetaLabel extends StatelessWidget {
           letterSpacing: 0,
         ),
       ),
+    );
+  }
+}
+
+class DrawerUserInfo extends StatelessWidget {
+  final User user;
+
+  const DrawerUserInfo({
+    super.key,
+    required this.user,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Center(child: UserAvatar(url: user.avatar, radius: 32)),
+        const Divider(),
+        Center(
+          child: Text(
+            user.username,
+            style: context.theme.textTheme.titleLarge,
+          ),
+        ),
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: [
+            for (final role in user.roles) RoleChip(role: role),
+          ],
+        )
+      ],
+    );
+  }
+}
+
+class DrawerSettings extends StatelessWidget {
+  const DrawerSettings({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            DrawerIconButton(
+              onPressed: () {},
+              text: LocaleKeys.settings.tr(),
+              iconAsset: Assets.assetsSettingsIcon,
+            ),
+            const VerticalDivider(),
+            DrawerIconButton(
+              onPressed: () {
+                context.router.push(const UserDrawerThemeRoute());
+              },
+              text: LocaleKeys.theme.tr(),
+              iconAsset: Assets.assetsDropIcon,
+            ),
+          ],
+        ),
+        TextButton(
+          onPressed: () {},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(LocaleKeys.interface.tr()),
+              const _BetaLabel(),
+            ],
+          ),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(LocaleKeys.chapterLanguages.tr()),
+              // TODO: Add flag
+              const SizedBox(
+                width: 24,
+                height: 18,
+                child: Placeholder(),
+              ),
+            ],
+          ),
+        ),
+        TextButton(
+          onPressed: () {},
+          style: context.theme.textButtonTheme.style?.copyWith(
+            alignment: Alignment.centerLeft,
+          ),
+          child: Text(LocaleKeys.contentFilter.tr()),
+        ),
+      ],
     );
   }
 }
