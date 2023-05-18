@@ -22,7 +22,16 @@ class AppBarLogo extends StatelessWidget {
       children: [
         SvgPicture.asset(Assets.assetsMangadexLogo),
         VerticalDivider(width: dividerWidth),
-        SvgPicture.asset(Assets.assetsMangadexWordmark, colorFilter: ColorFilter.mode(color, BlendMode.srcIn)),
+        Expanded(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: SvgPicture.asset(
+              Assets.assetsMangadexWordmark,
+              colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
       ],
     );
   }

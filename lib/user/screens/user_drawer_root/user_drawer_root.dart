@@ -20,18 +20,24 @@ class UserDrawerRootPage extends StatelessWidget {
       slivers: [
         SliverSafeArea(
           bottom: false,
-          sliver: SliverToBoxAdapter(
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: DrawerLeadingButton(),
+          sliver: SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            sliver: SliverToBoxAdapter(
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: DrawerLeadingButton(),
+              ),
             ),
           ),
         ),
         SliverSafeArea(
           top: false,
-          sliver: SliverFillRemaining(
-            hasScrollBody: false,
-            child: AutoRouter(),
+          sliver: SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            sliver: SliverFillRemaining(
+              hasScrollBody: false,
+              child: AutoRouter(),
+            ),
           ),
         ),
       ],
