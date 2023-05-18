@@ -8,31 +8,35 @@ import 'package:injectable/injectable.dart';
 
 // Project imports:
 import 'package:mangadex/auth/domain/use_cases/sign_out.use_case.dart';
+import 'package:mangadex/auth/domain/use_cases/subscribe_to_sign_in.use_case.dart';
 import 'package:mangadex/auth/domain/use_cases/subscribe_to_sign_out.use_case.dart';
 import 'package:mangadex/user/domain/use_cases/get_current_user.use_case.dart';
 import 'package:mangadex/user/domain/user.dart';
 
-part 'user_drawer_state.dart';
+part 'current_user_state.dart';
 
-@Injectable()
-class UserDrawerCubit extends Cubit<UserDrawerState> {
+@Singleton()
+class CurrentUserCubit extends Cubit<CurrentUserState> {
   final GetCurrentUserUseCase _currentUserUseCase;
   final SignOutUseCase _signOutUseCase;
   final SubscribeToSignOutUseCase _subscribeToSignOutUseCase;
+  final SubscribeToSignInUseCase _subscribeToSignInUseCase;
   late final StreamSubscription<void> _signOutSubscription;
+  late final StreamSubscription<void> _signInSubscription;
 
-  UserDrawerCubit(
+  CurrentUserCubit(
     this._currentUserUseCase,
     this._signOutUseCase,
     this._subscribeToSignOutUseCase,
-  ) : super(UserDrawerInitial()) {
-    fetchCurrentUser();
+    this._subscribeToSignInUseCase,
+  ) : super(CurrentUserLoading()) {
     _signOutSubscription = _subscribeToSignOutUseCase(_onSignOut);
+    _signInSubscription = _subscribeToSignInUseCase(_onSignIn);
   }
 
   Future<void> fetchCurrentUser() async {
     final user = await _currentUserUseCase();
-    emit(UserDrawerReady(user));
+    emit(CurrentUserReady(user));
   }
 
   Future<void> signOut() async {
@@ -40,12 +44,17 @@ class UserDrawerCubit extends Cubit<UserDrawerState> {
   }
 
   void _onSignOut(_) {
-    emit(UserDrawerReady(GuestUser()));
+    emit(CurrentUserReady(GuestUser()));
+  }
+
+  void _onSignIn(_) {
+    fetchCurrentUser();
   }
 
   @override
   Future<void> close() async {
     await _signOutSubscription.cancel();
+    await _signInSubscription.cancel();
     return super.close();
   }
 }

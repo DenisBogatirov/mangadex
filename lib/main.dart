@@ -18,6 +18,7 @@ import 'package:mangadex/infrastructure/router/router.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 import 'package:mangadex/theme/domain/user_theme.dart';
 import 'package:mangadex/theme/theme_cubit.dart';
+import 'package:mangadex/user/utils/current_user_cubit.dart';
 
 Future<void> main() async {
   EasyLocalization.logger.enableLevels = [LevelMessages.error, LevelMessages.warning];
@@ -34,6 +35,10 @@ Future<void> main() async {
         providers: [
           Provider(create: (_) => GetIt.instance),
           Provider<ThemeCubit>(create: (context) => context.read<GetIt>().get()),
+          Provider<CurrentUserCubit>(
+            lazy: false,
+            create: (context) => context.read<GetIt>().get()..fetchCurrentUser(),
+          ),
         ],
         child: const MyApp(),
       ),
