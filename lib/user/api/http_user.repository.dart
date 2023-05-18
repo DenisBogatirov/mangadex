@@ -28,7 +28,7 @@ class HttpUserRepository implements UserRepository {
       return _cachedUser!;
     }
 
-    final userResponseDto = await _userClient.me(includes: IncludesQuery(['scanlation_group']));
+    final userResponseDto = await _userClient.me();
     _cachedUser = UserMapper.userDtoToUser(userResponseDto);
 
     return _cachedUser!;

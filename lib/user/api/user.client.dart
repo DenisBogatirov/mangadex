@@ -17,16 +17,7 @@ abstract class UserClient {
   factory UserClient(AuthorizedMangaDexDio dio) = _UserClient;
 
   @GET('/user/me')
-  Future<UserResponseDTO> me({@Queries() IncludesQuery? includes});
-}
-
-
-@JsonSerializable(createFactory: false)
-class IncludesQuery {
-  @JsonKey(name: 'includes[]')
-  final String includes;
-
-  IncludesQuery(List<String> params) : includes = params.join(',');
-
-  Map<String, dynamic> toJson() => _$IncludesQueryToJson(this);
+  Future<UserResponseDTO> me({
+    @Query('includes[]') List<String> includes = const ['scanlation_group'],
+  });
 }
