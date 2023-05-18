@@ -21,7 +21,7 @@ class DrawerIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: context.theme.textButtonTheme.style!.copyWith(
-        visualDensity: VisualDensity.compact,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
       onPressed: onPressed,
       child: Row(
