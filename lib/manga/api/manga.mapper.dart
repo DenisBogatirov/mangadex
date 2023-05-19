@@ -60,10 +60,10 @@ class MangaMapper {
         relationships.whereType<CoverArtDataDTO>().first,
         dto.id,
       ),
-      titles: {
+      title: {
         for (final entry in attributes.title.entries) Locale.fromSubtags(languageCode: entry.key): entry.value,
       },
-      descriptions: {
+      description: {
         for (final entry in attributes.description.entries) Locale.fromSubtags(languageCode: entry.key): entry.value,
       },
       altTitles: [

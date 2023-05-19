@@ -28,10 +28,10 @@ enum MangaPublicationDemographic {
 
 class Manga {
   final String id;
-  final Map<Locale, String> _titles;
-  final Map<Locale, String> _descriptions;
+  final Map<Locale, String> title;
+  final Map<Locale, String> description;
   // TODO: Create separate class
-  final List<Map<Locale, String>> _altTitles;
+  final List<Map<Locale, String>> altTitles;
   final Locale originalLanguage;
   final bool isLocked;
 
@@ -76,10 +76,8 @@ class Manga {
     required this.coverArt,
     this.publicationDemographic,
     this.year,
-    required Map<Locale, String> titles,
-    required Map<Locale, String> descriptions,
-    required List<Map<Locale, String>> altTitles,
-  })  : _titles = titles,
-        _descriptions = descriptions,
-        _altTitles = altTitles;
+    required this.title,
+    required this.description,
+    required this.altTitles,
+  });
 }
