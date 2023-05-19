@@ -20,11 +20,14 @@ class UserResponseDTO extends DataResponseWrapperDTO<UserDataDTO> {
 
 @JsonSerializable(createToJson: false)
 class UserDataDTO extends DataResponseDTO<UserDTO> {
+  @override
+  UserDTO get attributes => super.attributes!;
+
   UserDataDTO({
     required super.id,
     required super.type,
     required super.attributes,
-    // required super.relations,
+    required super.relationships,
   });
 
   factory UserDataDTO.fromJson(Map<String, dynamic> json) => _$UserDataDTOFromJson(json);
