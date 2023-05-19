@@ -1,6 +1,9 @@
 // Dart imports:
 import 'dart:ui';
 
+// Package imports:
+import 'package:equatable/equatable.dart';
+
 // Project imports:
 import 'creator.dart';
 import 'manga_tag.dart';
@@ -26,7 +29,7 @@ enum MangaPublicationDemographic {
   seinen,
 }
 
-class Manga {
+class Manga extends Equatable {
   final String id;
   final Map<Locale, String> title;
   final Map<Locale, String> description;
@@ -80,4 +83,7 @@ class Manga {
     required this.description,
     required this.altTitles,
   });
+
+  @override
+  List<Object?> get props => [id];
 }

@@ -1,7 +1,10 @@
 // Dart imports:
 import 'dart:ui';
 
-abstract class Creator {
+// Package imports:
+import 'package:equatable/equatable.dart';
+
+abstract class Creator extends Equatable {
   final String id;
   final String name;
   final String? imageUrl;
@@ -45,10 +48,13 @@ abstract class Creator {
     required this.updatedAt,
     required this.version,
   });
+
+  @override
+  List<Object?> get props => [id];
 }
 
 class Author extends Creator {
-  Author({
+  const Author({
     required super.id,
     required super.name,
     super.imageUrl,
@@ -73,7 +79,7 @@ class Author extends Creator {
 }
 
 class Artist extends Creator {
-  Artist({
+  const Artist({
     required super.id,
     required super.name,
     super.imageUrl,

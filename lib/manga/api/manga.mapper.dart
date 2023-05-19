@@ -145,10 +145,10 @@ class MangaTagMapper {
     return MangaTag(
       id: dto.id,
       group: attributes.group,
-      names: {
+      name: {
         for (final entry in attributes.name.entries) Locale.fromSubtags(languageCode: entry.key): entry.value,
       },
-      descriptions: {
+      description: {
         for (final entry in attributes.description.entries) Locale.fromSubtags(languageCode: entry.key): entry.value,
       },
     );

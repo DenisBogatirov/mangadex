@@ -1,22 +1,26 @@
 import 'dart:ui';
 
+import 'package:equatable/equatable.dart';
+
 enum MangaTagGroup {
   theme,
   genre,
   format,
 }
 
-class MangaTag {
+class MangaTag extends Equatable {
   final String id;
-  final Map<Locale, String> _names;
-  final Map<Locale, String> _descriptions;
+  final Map<Locale, String> name;
+  final Map<Locale, String> description;
   final MangaTagGroup group;
 
   const MangaTag({
     required this.id,
     required this.group,
-    required Map<Locale, String> names,
-    required Map<Locale, String> descriptions,
-  })  : _names = names,
-        _descriptions = descriptions;
+    required this.name,
+    required this.description,
+  });
+
+  @override
+  List<Object?> get props => [id];
 }
