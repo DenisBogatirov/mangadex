@@ -8,27 +8,11 @@ import 'package:mangadex/manga/api/dto/creator.dto.dart';
 import 'package:mangadex/manga/api/dto/manga.dto.dart';
 import 'package:mangadex/manga/api/dto/manga_tag.dto.dart';
 import 'package:mangadex/user/api/dto/user.dto.dart';
+import 'package:mangadex/utils/relationship_type.dart';
 
 enum ResponseType {
   collection,
   entity,
-}
-
-@JsonEnum(valueField: 'value')
-enum DataResponseType {
-  manga('manga'),
-  chapter('chapter'),
-  coverArt('cover_art'),
-  author('author'),
-  artist('artist'),
-  scanlationGroup('scanlation_group'),
-  tag('tag'),
-  user('user'),
-  customList('custom_list');
-
-  final String value;
-
-  const DataResponseType(this.value);
 }
 
 abstract class ResponseWrapperDTO {
@@ -61,7 +45,10 @@ abstract class CollectionResponseWrapperDTO<T extends DataResponseDTO> extends R
 
 abstract class DataResponseDTO<T> {
   final String id;
-  final DataResponseType type;
+
+  @RelationshipTypeConverter()
+  final RelationshipType type;
+
   final T? attributes;
 
   @JsonKey(fromJson: attributesFromJson)
@@ -79,32 +66,32 @@ abstract class DataResponseDTO<T> {
 
     final result = <DataResponseDTO>[];
     for (final json in (relationships as List)) {
-      final DataResponseType? type = DataResponseType.values.firstWhereOrNull(
+      final RelationshipType? type = RelationshipType.values.firstWhereOrNull(
             (t) => t.value == json['type'],
       );
       if (type != null) {
         switch (type) {
-          case DataResponseType.author:
+          case RelationshipType.author:
             result.add(AuthorDataDTO.fromJson(json));
             break;
-          case DataResponseType.artist:
+          case RelationshipType.artist:
             result.add(ArtistDataDTO.fromJson(json));
             break;
-          case DataResponseType.tag:
+          case RelationshipType.tag:
             result.add(MangaTagDataDTO.fromJson(json));
             break;
-          case DataResponseType.coverArt:
+          case RelationshipType.coverArt:
             result.add(CoverArtDataDTO.fromJson(json));
             break;
-          case DataResponseType.user:
+          case RelationshipType.user:
             result.add(UserDataDTO.fromJson(json));
             break;
-          case DataResponseType.manga:
+          case RelationshipType.manga:
             result.add(MangaDataDTO.fromJson(json));
             break;
-          case DataResponseType.chapter:
-          case DataResponseType.scanlationGroup:
-          case DataResponseType.customList:
+          case RelationshipType.chapter:
+          case RelationshipType.scanlationGroup:
+          case RelationshipType.customList:
           default:
             throw UnimplementedError();
         }

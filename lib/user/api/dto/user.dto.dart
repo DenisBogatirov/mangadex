@@ -4,6 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 // Project imports:
 import 'package:mangadex/infrastructure/api_client/dto/wrapper.dto.dart';
 import 'package:mangadex/user/domain/user.dart';
+import 'package:mangadex/utils/relationship_type.dart';
 
 part 'user.dto.g.dart';
 
@@ -18,6 +19,7 @@ class UserResponseDTO extends DataResponseWrapperDTO<UserDataDTO> {
   factory UserResponseDTO.fromJson(Map<String, dynamic> json) => _$UserResponseDTOFromJson(json);
 }
 
+@RelationshipTypeConverter()
 @JsonSerializable(createToJson: false)
 class UserDataDTO extends DataResponseDTO<UserDTO> {
   @override

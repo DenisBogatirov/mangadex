@@ -17,10 +17,10 @@ abstract class MangaClient {
 
   @GET('/manga')
   Future<MangaListResponseDTO> fetchManga({
-    @Query('includes[]') required List<String> includes,
-    @Query('contentRating[]') required List<String> contentRating,
-    @Query('hasAvailableChapters') required bool hasAvailableChapters,
+    @Query('includes[]') List<String>? includes,
+    @Query('contentRating[]') List<String>? contentRating,
+    @Query('hasAvailableChapters') bool? hasAvailableChapters,
     @Query('order[followedCount]') String order = 'desc',
-    @Query('createdAtSince') required String createdAtSince,
+    @Query('createdAtSince') String? createdAtSince,
   });
 }

@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
 import 'package:mangadex/infrastructure/api_client/dto/wrapper.dto.dart';
+import 'package:mangadex/utils/relationship_type.dart';
 
 part 'creator.dto.g.dart';
 
@@ -104,6 +105,7 @@ class ArtistDTO extends CreatorDTO {
   factory ArtistDTO.fromJson(Map<String, dynamic> json) => _$ArtistDTOFromJson(json);
 }
 
+@RelationshipTypeConverter()
 @JsonSerializable(createToJson: false)
 class AuthorDataDTO extends DataResponseDTO<AuthorDTO> {
   AuthorDataDTO({
@@ -116,6 +118,7 @@ class AuthorDataDTO extends DataResponseDTO<AuthorDTO> {
   factory AuthorDataDTO.fromJson(Map<String, dynamic> json) => _$AuthorDataDTOFromJson(json);
 }
 
+@RelationshipTypeConverter()
 @JsonSerializable(createToJson: false)
 class ArtistDataDTO extends DataResponseDTO<ArtistDTO> {
   ArtistDataDTO({

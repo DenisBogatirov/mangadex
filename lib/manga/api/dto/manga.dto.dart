@@ -4,6 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 // Project imports:
 import 'package:mangadex/infrastructure/api_client/dto/wrapper.dto.dart';
 import 'package:mangadex/manga/domain/manga.dart';
+import 'package:mangadex/utils/relationship_type.dart';
 import 'manga_tag.dto.dart';
 
 part 'manga.dto.g.dart';
@@ -19,6 +20,7 @@ class MangaListResponseDTO extends CollectionResponseWrapperDTO<MangaDataDTO> {
   factory MangaListResponseDTO.fromJson(Map<String, dynamic> json) => _$MangaListResponseDTOFromJson(json);
 }
 
+@RelationshipTypeConverter()
 @JsonSerializable(createToJson: false)
 class MangaDataDTO extends DataResponseDTO<MangaDTO> {
   MangaDataDTO({

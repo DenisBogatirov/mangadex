@@ -4,9 +4,11 @@ import 'package:json_annotation/json_annotation.dart';
 // Project imports:
 import 'package:mangadex/infrastructure/api_client/dto/wrapper.dto.dart';
 import 'package:mangadex/manga/domain/manga_tag.dart';
+import 'package:mangadex/utils/relationship_type.dart';
 
 part 'manga_tag.dto.g.dart';
 
+@RelationshipTypeConverter()
 @JsonSerializable(createToJson: false)
 class MangaTagDataDTO extends DataResponseDTO<MangaTagDTO> {
   MangaTagDataDTO({

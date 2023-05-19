@@ -3,9 +3,11 @@ import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
 import 'package:mangadex/infrastructure/api_client/dto/wrapper.dto.dart';
+import 'package:mangadex/utils/relationship_type.dart';
 
 part 'cover_art.dto.g.dart';
 
+@RelationshipTypeConverter()
 @JsonSerializable(createToJson: false)
 class CoverArtDataDTO extends DataResponseDTO<CoverArtDTO> {
   CoverArtDataDTO({
