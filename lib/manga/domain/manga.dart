@@ -2,7 +2,7 @@
 import 'dart:ui';
 
 // Project imports:
-import 'author.dart';
+import 'creator.dart';
 import 'manga_tag.dart';
 
 enum MangaStatus {
@@ -52,7 +52,7 @@ class Manga {
   final List<Locale> availableTranslatedLanguages;
   final List<MangaTag> tags;
   final List<Author> authors;
-  final List<Author> artists;
+  final List<Artist> artists;
   final String coverArt;
 
   const Manga({

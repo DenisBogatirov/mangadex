@@ -3,8 +3,8 @@ import 'package:collection/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
-import 'package:mangadex/manga/api/dto/author.dto.dart';
 import 'package:mangadex/manga/api/dto/cover_art.dto.dart';
+import 'package:mangadex/manga/api/dto/creator.dto.dart';
 import 'package:mangadex/manga/api/dto/manga.dto.dart';
 import 'package:mangadex/manga/api/dto/manga_tag.dto.dart';
 import 'package:mangadex/user/api/dto/user.dto.dart';
@@ -88,7 +88,7 @@ abstract class DataResponseDTO<T> {
             result.add(AuthorDataDTO.fromJson(json));
             break;
           case DataResponseType.artist:
-            result.add(AuthorDataDTO.fromJson(json));
+            result.add(ArtistDataDTO.fromJson(json));
             break;
           case DataResponseType.tag:
             result.add(MangaTagDataDTO.fromJson(json));

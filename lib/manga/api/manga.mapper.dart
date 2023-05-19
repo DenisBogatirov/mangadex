@@ -7,17 +7,17 @@ import 'package:path/path.dart' as path;
 
 // Project imports:
 import 'package:mangadex/infrastructure/app_env.dart';
-import 'package:mangadex/manga/api/dto/author.dto.dart';
 import 'package:mangadex/manga/api/dto/cover_art.dto.dart';
+import 'package:mangadex/manga/api/dto/creator.dto.dart';
 import 'package:mangadex/manga/api/dto/manga.dto.dart';
 import 'package:mangadex/manga/api/dto/manga_tag.dto.dart';
-import 'package:mangadex/manga/domain/author.dart';
+import 'package:mangadex/manga/domain/creator.dart';
 import 'package:mangadex/manga/domain/manga.dart';
 import 'package:mangadex/manga/domain/manga_tag.dart';
 
 @singleton
 class MangaMapper {
-  final AuthorMapper _authorMapper;
+  final CreatorMapper _authorMapper;
   final MangaTagMapper _mangaTagMapper;
   final CoverArtMapper _coverArtMapper;
 
@@ -50,9 +50,8 @@ class MangaMapper {
       authors: [
         for (final dto in relationships.whereType<AuthorDataDTO>()) _authorMapper.toAuthor(dto),
       ],
-      // TODO: Handle
       artists: [
-        for (final dto in relationships.whereType<AuthorDataDTO>()) _authorMapper.toAuthor(dto),
+        for (final dto in relationships.whereType<ArtistDataDTO>()) _authorMapper.toArtist(dto),
       ],
       tags: [
         for (final dto in attributes.tags) _mangaTagMapper.toTag(dto),
@@ -78,11 +77,63 @@ class MangaMapper {
 }
 
 @singleton
-class AuthorMapper {
+class CreatorMapper {
   Author toAuthor(AuthorDataDTO dto) {
     final attributes = dto.attributes!;
 
-    return Author(id: dto.id, name: attributes.name);
+    return Author(
+      id: dto.id,
+      name: attributes.name,
+      imageUrl: attributes.imageUrl,
+      biography: {
+        for (final entry in attributes.biography.entries) Locale.fromSubtags(languageCode: entry.key): entry.value,
+      },
+      twitter: attributes.twitter,
+      pixiv: attributes.pixiv,
+      melonBook: attributes.melonBook,
+      fanBox: attributes.fanBox,
+      booth: attributes.booth,
+      nicoVideo: attributes.nicoVideo,
+      skeb: attributes.skeb,
+      fantia: attributes.fantia,
+      tumblr: attributes.tumblr,
+      youtube: attributes.youtube,
+      weibo: attributes.weibo,
+      naver: attributes.naver,
+      website: attributes.website,
+      createdAt: attributes.createdAt,
+      updatedAt: attributes.updatedAt,
+      version: attributes.version,
+    );
+  }
+
+  Artist toArtist(ArtistDataDTO dto) {
+    final attributes = dto.attributes!;
+
+    return Artist(
+      id: dto.id,
+      name: attributes.name,
+      imageUrl: attributes.imageUrl,
+      biography: {
+        for (final entry in attributes.biography.entries) Locale.fromSubtags(languageCode: entry.key): entry.value,
+      },
+      twitter: attributes.twitter,
+      pixiv: attributes.pixiv,
+      melonBook: attributes.melonBook,
+      fanBox: attributes.fanBox,
+      booth: attributes.booth,
+      nicoVideo: attributes.nicoVideo,
+      skeb: attributes.skeb,
+      fantia: attributes.fantia,
+      tumblr: attributes.tumblr,
+      youtube: attributes.youtube,
+      weibo: attributes.weibo,
+      naver: attributes.naver,
+      website: attributes.website,
+      createdAt: attributes.createdAt,
+      updatedAt: attributes.updatedAt,
+      version: attributes.version,
+    );
   }
 }
 
