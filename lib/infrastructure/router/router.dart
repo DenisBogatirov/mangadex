@@ -18,11 +18,8 @@ class AppRouter extends $AppRouter {
       path: '/',
       page: HomeRoute.page,
       children: [
-        AutoRoute(
-          path: 'not-implemented',
-          page: NotImplementedRoute.page,
-          initial: true,
-        )
+        AutoRoute(page: HomeRootRoute.page, initial: true),
+        AutoRoute(path: 'not-implemented', page: NotImplementedRoute.page)
       ],
     ),
   ];

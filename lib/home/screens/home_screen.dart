@@ -40,9 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
           config: _drawerRouter.config(),
         ),
       ),
-      body: const SafeArea(
-        child: AutoRouter(),
-      ),
+      body: const AutoRouter(),
     );
   }
 }
