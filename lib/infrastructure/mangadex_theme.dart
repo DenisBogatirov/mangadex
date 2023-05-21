@@ -30,6 +30,11 @@ class MangaDexColors {
   static Color errorInputBackground = HexColor('#6c3c3c');
 
   static Color dividerColor = HexColor('#e5e7eb');
+  static Color darkAccentColor = HexColor('#2c2c2c');
+  static Color lightAccentColor = HexColor('#f0f1f2');
+
+  static Color statusYellow = HexColor('#da7500');
+  static Color statusRed = HexColor('#ff4040');
 }
 
 final _darkColorScheme = ColorScheme(
@@ -137,6 +142,11 @@ extension ContextThemeExtension on BuildContext {
 
 extension ThemeExtension on ThemeData {
   bool get isDark => brightness == Brightness.dark;
+}
+
+extension ColorSchemeExtension on ColorScheme {
+  bool get isDark => brightness == Brightness.dark;
+  Color get accentColor => isDark ? MangaDexColors.darkAccentColor : MangaDexColors.lightAccentColor;
 }
 
 extension UserThemeExtension on ThemeMode {
