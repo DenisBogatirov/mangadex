@@ -9,6 +9,11 @@ import 'package:mangadex/infrastructure/mangadex_assets.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/widgets/media_query_builder.dart';
 import 'package:mangadex/widgets/svg_icon.dart';
+import 'package:mangadex/widgets/svg_icon_button.dart';
+
+part 'mobile_popular_paginator.dart';
+
+part 'tablet_popular_paginator.dart';
 
 const kPopularPaginatorHeight = 64.0;
 const kPaginatorDuration = Duration(milliseconds: 400);
@@ -28,12 +33,13 @@ class PopularPaginator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = context.theme.colorScheme.background;
-
     return Container(
       height: kPopularPaginatorHeight,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: MediaQueryBuilder(
+        stops: {
+          640: (context) => _PopularPaginatorTablet(onPrev: onPrev, onNext: onNext),
+        },
         fallback: (context) => _PopularPaginatorMobile(
           onPrev: onPrev,
           onNext: onNext,
@@ -44,6 +50,9 @@ class PopularPaginator extends StatelessWidget {
   }
 
   void onPrev() {
+    if (pageController.page == 0) {
+      pageController.jumpToPage(total);
+    }
     pageController.previousPage(
       duration: kPaginatorDuration,
       curve: kPaginatorCurve,
@@ -54,82 +63,6 @@ class PopularPaginator extends StatelessWidget {
     pageController.nextPage(
       duration: kPaginatorDuration,
       curve: kPaginatorCurve,
-    );
-  }
-}
-
-class _PopularPaginatorMobile extends StatelessWidget {
-  final VoidCallback onPrev;
-  final VoidCallback onNext;
-  final String text;
-
-  const _PopularPaginatorMobile({
-    required this.onPrev,
-    required this.onNext,
-    required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final color = context.theme.colorScheme.background;
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        GestureDetector(
-          onTap: onPrev,
-          child: _PaginatorItemWrapperMobile(
-            child: SvgIcon(
-              asset: Assets.assetsChevronLeft,
-              color: color,
-            ),
-          ),
-        ),
-        _PaginatorItemWrapperMobile(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2.0),
-            child: Text(
-              text,
-              style: context.theme.textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: color,
-              ),
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: onNext,
-          child: _PaginatorItemWrapperMobile(
-            child: SvgIcon(
-              asset: Assets.assetsChevronRight,
-              color: color,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _PaginatorItemWrapperMobile extends StatelessWidget {
-  final Widget child;
-
-  const _PaginatorItemWrapperMobile({
-    required this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = context.theme.isDark;
-    final backgroundColor = isDark ? Colors.white : HexColor('#242424');
-
-    return Container(
-      padding: const EdgeInsets.all(2),
-      decoration: BoxDecoration(
-        color: backgroundColor.withOpacity(0.6),
-        borderRadius: BorderRadius.circular(kPopularPaginatorHeight),
-      ),
-      child: child,
     );
   }
 }
