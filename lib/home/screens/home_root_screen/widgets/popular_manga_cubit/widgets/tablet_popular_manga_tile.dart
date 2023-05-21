@@ -35,12 +35,19 @@ class _PopularMangaTitleTablet extends StatelessWidget {
                       style: context.theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
                       overflow: TextOverflow.ellipsis,
                     ),
+                    Divider(
+                      height: context.theme.dividerTheme.space! / 2,
+                    ),
                     Wrap(
                       spacing: 10,
+                      runSpacing: 5,
                       children: [
                         MangaTagChip.contentRating(manga.contentRating),
                         for (final tag in manga.tags) MangaTagChip(tag.name.values.first)
                       ],
+                    ),
+                    Divider(
+                      height: context.theme.dividerTheme.space! / 2,
                     ),
                     Text(
                       [...manga.authors, ...manga.artists].map((c) => c.name).toSet().join(', '),

@@ -14,6 +14,7 @@ import 'package:mangadex/utils/cover_art_extension.dart';
 import 'package:mangadex/widgets/media_query_builder.dart';
 
 part 'mobile_popular_manga_tile.dart';
+
 part 'tablet_popular_manga_tile.dart';
 
 class PopularMangaTile extends StatefulWidget {
@@ -60,6 +61,7 @@ class MangaTagChip extends StatelessWidget {
   static statusRed(String text) => MangaTagChip(text, color: MangaDexColors.statusRed);
 
   static contentRating(MangaContentRating rating) {
+    // TODO: Translate
     final text = rating.name;
     switch (rating) {
       case MangaContentRating.suggestive:
@@ -78,8 +80,14 @@ class MangaTagChip extends StatelessWidget {
     final color = this.color ?? context.theme.colorScheme.accentColor;
 
     return Container(
-      color: color,
-      child: Text(text),
+      padding: const EdgeInsets.only(left: 8, right: 6),
+      decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4)),
+      child: Text(
+        text.toUpperCase(),
+        style: context.theme.textTheme.labelMedium?.copyWith(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 }
