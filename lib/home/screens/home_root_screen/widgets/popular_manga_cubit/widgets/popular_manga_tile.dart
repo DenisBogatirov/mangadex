@@ -36,7 +36,7 @@ class _PopularMangaTileState extends State<PopularMangaTile> with AutomaticKeepA
 
     return MediaQueryBuilder(
       stops: {
-        768: (context) => _PopularMangaTitleTablet(manga: widget.manga),
+        640: (context) => _PopularMangaTitleTablet(manga: widget.manga),
       },
       fallback: (context) => _PopularMangaTitleMobile(manga: widget.manga),
     );

@@ -20,20 +20,13 @@ class MediaQueryBuilder extends StatelessWidget {
 
     if (stops != null && stops.isNotEmpty) {
       final width = MediaQuery.of(context).size.width;
-      final sorted = stops.keys.sorted((a, b) => a - b);
-
-
-      if (width < sorted.first) {
-        return fallback(context);
-      }
+      final sorted = stops.keys.sorted((a, b) => b - a);
 
       for (final stop in sorted) {
-        if (width < stop) {
+        if (width >= stop) {
           return stops[stop]!(context);
         }
       }
-
-      return stops[sorted.last]!(context);
     }
 
     return fallback(context);
