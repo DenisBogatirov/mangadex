@@ -72,7 +72,10 @@ class TabletMangaCoverArtImage extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(4.0)),
           child: CachedNetworkImage(
             imageUrl: url,
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
+            alignment: Alignment.topCenter,
+            width: double.infinity,
+            height: double.infinity,
             progressIndicatorBuilder: (context, url, progress) => const Center(
               child: CircularProgressIndicator(),
             ),

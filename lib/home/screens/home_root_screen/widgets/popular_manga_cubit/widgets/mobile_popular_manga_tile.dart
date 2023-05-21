@@ -44,7 +44,7 @@ class _PopularMangaTitleMobile extends StatelessWidget {
                           manga.title.entries.first.value,
                           maxLines: 3,
                           style:
-                          context.theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
+                              context.theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
@@ -64,8 +64,6 @@ class _PopularMangaTitleMobile extends StatelessWidget {
   }
 }
 
-
-
 class MobileMangaCoverArtImage extends StatelessWidget {
   final String url;
 
@@ -75,15 +73,16 @@ class MobileMangaCoverArtImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return LimitedBox(
       maxWidth: 128,
-      child: SizedBox.expand(
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-          child: CachedNetworkImage(
-            imageUrl: url,
-            fit: BoxFit.cover,
-            progressIndicatorBuilder: (context, url, progress) => const Center(
-              child: CircularProgressIndicator(),
-            ),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+        child: CachedNetworkImage(
+          imageUrl: url,
+          fit: BoxFit.cover,
+          width: double.infinity,
+          height: double.infinity,
+          alignment: Alignment.topCenter,
+          progressIndicatorBuilder: (context, url, progress) => const Center(
+            child: CircularProgressIndicator(),
           ),
         ),
       ),
