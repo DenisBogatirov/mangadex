@@ -1,22 +1,17 @@
-// Dart imports:
-import 'dart:ui';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
-import 'package:mangadex/infrastructure/mangadex_assets.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 import 'package:mangadex/manga/domain/manga.dart';
-import 'package:mangadex/widgets/svg_icon.dart';
-import 'package:mangadex/widgets/svg_icon_button.dart';
 import 'popular_manga_cubit.dart';
+import 'widgets/popular_manga_tile.dart';
+import 'widgets/popular_paginator.dart';
 
 class PopularManga extends StatefulWidget {
   const PopularManga({super.key});
@@ -32,7 +27,7 @@ class _PopularMangaState extends State<PopularManga> {
   @override
   Widget build(BuildContext context) {
     return LimitedBox(
-      maxHeight: 352,
+      maxHeight: 352 - kToolbarHeight,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -53,11 +48,7 @@ class _PopularMangaState extends State<PopularManga> {
                   PopularMangaReady(manga: List<Manga> mangaList) => Stack(
                       children: [
                         PageView.builder(
-                          onPageChanged: (page) {
-                            setState(() {
-                              _page = (page % 10) + 1;
-                            });
-                          },
+                          onPageChanged: _onPageChanged,
                           controller: _pageController,
                           itemBuilder: (context, index) {
                             final manga = mangaList[index % 10];
@@ -67,50 +58,10 @@ class _PopularMangaState extends State<PopularManga> {
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              // TODO: Style buttons
-                              SvgIconButton(
-                                onPressed: () {
-                                  // Loop back
-                                  if (_pageController.page! % 10 == 0) {
-                                    _pageController.jumpToPage(10);
-                                  }
-                                  _pageController.previousPage(
-                                    duration: const Duration(milliseconds: 400),
-                                    curve: Curves.easeInOut,
-                                  );
-                                },
-                                asset: Assets.assetsChevronLeft,
-                              ),
-                              Chip(
-                                label: Text(
-                                  '$_page/${mangaList.length}',
-                                  style: context.theme.textTheme.bodyMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              SvgIconButton(
-                                onPressed: () {
-                                  _pageController.nextPage(
-                                    duration: const Duration(milliseconds: 400),
-                                    curve: Curves.easeInOut,
-                                  );
-                                },
-                                asset: Assets.assetsChevronRight,
-                              ),
-
-                              // FilledButton.tonal(
-                              //
-                              //   onPressed: () {},
-                              //   style: context.theme.filledButtonTheme.style?.copyWith(
-                              //     padding: const MaterialStatePropertyAll(EdgeInsets.zero),
-                              //   ),
-                              //   child: const SvgIcon(asset: Assets.assetsChevronRight),
-                              // ),
-                            ],
+                          child: PopularPaginator(
+                            pageController: _pageController,
+                            page: _page,
+                            total: mangaList.length,
                           ),
                         ),
                       ],
@@ -123,50 +74,10 @@ class _PopularMangaState extends State<PopularManga> {
       ),
     );
   }
-}
 
-class PopularMangaTile extends StatefulWidget {
-  final Manga manga;
-
-  const PopularMangaTile({
-    super.key,
-    required this.manga,
-  });
-
-  @override
-  State<PopularMangaTile> createState() => _PopularMangaTileState();
-}
-
-class _PopularMangaTileState extends State<PopularMangaTile> with AutomaticKeepAliveClientMixin<PopularMangaTile> {
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        CachedNetworkImage(imageUrl: widget.manga.coverArt, fit: BoxFit.cover),
-        BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  context.theme.colorScheme.background,
-                  Colors.transparent,
-                  Colors.transparent,
-                  context.theme.colorScheme.background,
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
+  void _onPageChanged(page) {
+    setState(() {
+      _page = (page % 10) + 1;
+    });
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

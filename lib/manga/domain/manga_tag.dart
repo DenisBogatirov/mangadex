@@ -6,6 +6,7 @@ enum MangaTagGroup {
   theme,
   genre,
   format,
+  content,
 }
 
 class MangaTag extends Equatable {

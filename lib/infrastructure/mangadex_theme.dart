@@ -135,6 +135,10 @@ extension ContextThemeExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
 }
 
+extension ThemeExtension on ThemeData {
+  bool get isDark => brightness == Brightness.dark;
+}
+
 extension UserThemeExtension on ThemeMode {
   static ThemeMode fromUserTheme(UserTheme userTheme) {
     switch (userTheme) {
