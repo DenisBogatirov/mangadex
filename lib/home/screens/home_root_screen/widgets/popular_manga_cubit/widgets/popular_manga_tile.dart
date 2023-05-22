@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 // Project imports:
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
+import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 import 'package:mangadex/manga/domain/manga.dart';
 import 'package:mangadex/utils/cover_art_extension.dart';
 import 'package:mangadex/widgets/media_query_builder.dart';
@@ -61,8 +63,7 @@ class MangaTagChip extends StatelessWidget {
   static statusRed(String text) => MangaTagChip(text, color: MangaDexColors.statusRed);
 
   static contentRating(MangaContentRating rating) {
-    // TODO: Translate
-    final text = rating.name;
+    final text = '${LocaleKeys.contentRating}.${rating.name}'.tr();
     switch (rating) {
       case MangaContentRating.suggestive:
         return statusYellow(text);

@@ -33,5 +33,12 @@
   "myGroups": "My Groups",
   "myReports": "My Reports",
   "announcements": "Announcements",
-  "popular": "Popular"
+  "popular": "Popular",
+  "popularNewTitles": "Popular New Titles",
+  "contentRating": {
+    "safe":  "Safe",
+    "suggestive": "Suggestive",
+    "erotica":  "Erotica",
+    "pornographic": "Pornographic"
+  }
 }
