@@ -5,14 +5,36 @@ import 'package:injectable/injectable.dart';
 import 'package:mangadex/infrastructure/store_interactor.dart';
 import 'package:mangadex/settings/domain/content_rating.dart';
 import 'package:mangadex/settings/domain/settings.repository.dart';
+import 'package:mangadex/settings/domain/user_theme.dart';
 
 const _separator = ',';
+
+class _UserThemeMapper {
+  final _enumKeyMap = {for (final theme in UserTheme.values) theme: theme.toString()};
+  final _stringKeyMap = {for (final theme in UserTheme.values) theme.toString(): theme};
+
+  String themeToString(UserTheme theme) => _enumKeyMap[theme]!;
+
+  UserTheme themeFromString(String theme) => _stringKeyMap[theme]!;
+}
 
 @LazySingleton(as: SettingsRepository)
 class CombinedSettingsRepository implements SettingsRepository {
   final StoreInteractor _storeInteractor;
+  final _UserThemeMapper _userThemeMapper = _UserThemeMapper();
 
   CombinedSettingsRepository(this._storeInteractor);
+
+  @override
+  Future<UserTheme> getTheme() async {
+    final themeString = await _storeInteractor.getTheme();
+    return themeString != null ? _userThemeMapper.themeFromString(themeString) : UserTheme.system;
+  }
+
+  @override
+  Future<void> saveTheme(UserTheme theme) async {
+    return _storeInteractor.setTheme(_userThemeMapper.themeToString(theme));
+  }
 
   @override
   Future<List<MangaContentRating>> getContentRating() async {

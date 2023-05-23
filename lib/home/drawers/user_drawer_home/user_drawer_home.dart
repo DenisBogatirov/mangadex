@@ -8,6 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 // Project imports:
+import 'package:mangadex/home/drawers/widgets/drawer_icon_button.dart';
+import 'package:mangadex/home/drawers/widgets/role_chip.dart';
+import 'package:mangadex/home/drawers/widgets/user_avatar.dart';
 import 'package:mangadex/infrastructure/mangadex_assets.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/mangadex_urls.dart';
@@ -16,9 +19,6 @@ import 'package:mangadex/infrastructure/router/router.gr.dart';
 import 'package:mangadex/infrastructure/router/user_drawer_router.gr.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 import 'package:mangadex/user/domain/user.dart';
-import 'package:mangadex/user/drawers/widgets/drawer_icon_button.dart';
-import 'package:mangadex/user/drawers/widgets/role_chip.dart';
-import 'package:mangadex/user/drawers/widgets/user_avatar.dart';
 import 'package:mangadex/user/utils/current_user_cubit.dart';
 
 class _DrawerMenuOption {

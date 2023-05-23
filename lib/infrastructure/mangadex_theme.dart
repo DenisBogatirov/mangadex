@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 // Project imports:
-import 'package:mangadex/theme/domain/user_theme.dart';
+import 'package:mangadex/settings/domain/user_theme.dart';
 
 class MangaDexColors {
   static Color primary = HexColor('#ff6740');

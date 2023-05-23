@@ -2,12 +2,12 @@
 import 'package:injectable/injectable.dart';
 
 // Project imports:
-import 'package:mangadex/theme/domain/user_theme.dart';
-import 'package:mangadex/theme/domain/user_theme.repository.dart';
+import 'package:mangadex/settings/domain/settings.repository.dart';
+import 'package:mangadex/settings/domain/user_theme.dart';
 
 @injectable
 class GetCurrentThemeUseCase {
-  final UserThemeRepository _repository;
+  final SettingsRepository _repository;
 
   GetCurrentThemeUseCase(this._repository);
 

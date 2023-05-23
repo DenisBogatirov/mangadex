@@ -16,9 +16,9 @@ import 'package:mangadex/infrastructure/di/di.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/router/router.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
+import 'package:mangadex/settings/domain/user_theme.dart';
 import 'package:mangadex/settings/drawers/user_drawer_content_rating/drawer_content_rating_cubit.dart';
-import 'package:mangadex/theme/domain/user_theme.dart';
-import 'package:mangadex/theme/theme_cubit.dart';
+import 'package:mangadex/settings/drawers/user_drawer_theme/theme_cubit.dart';
 import 'package:mangadex/user/utils/current_user_cubit.dart';
 
 Future<void> main() async {

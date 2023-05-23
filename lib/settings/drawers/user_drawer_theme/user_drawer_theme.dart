@@ -10,8 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mangadex/infrastructure/mangadex_assets.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
-import 'package:mangadex/theme/domain/user_theme.dart';
-import 'package:mangadex/theme/theme_cubit.dart';
+import 'package:mangadex/settings/domain/user_theme.dart';
+import 'package:mangadex/settings/drawers/user_drawer_theme/theme_cubit.dart';
 import 'package:mangadex/widgets/svg_icon.dart';
 
 final class _ThemeLocaleMapper {

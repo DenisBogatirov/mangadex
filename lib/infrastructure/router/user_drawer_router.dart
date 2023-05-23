@@ -13,7 +13,7 @@ import 'user_drawer_router.gr.dart';
 @AutoRouterConfig(
   replaceInRouteName: 'Page,Route',
   generateForDir: [
-    'lib/user/drawers/',
+    'lib/home/drawers/',
     'lib/settings/drawers/'
   ],
 )
