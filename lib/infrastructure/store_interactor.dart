@@ -5,7 +5,8 @@ import 'package:injectable/injectable.dart';
 enum StoreInteractorKeys {
   sessionToken('SESSION_TOKEN'),
   refreshToken('REFRESH_TOKEN'),
-  theme('THEME');
+  theme('THEME'),
+  contentRating('CONTENT_RATING');
 
   const StoreInteractorKeys(this.name);
 
@@ -57,6 +58,14 @@ class StoreInteractor {
 
   Future<void> setTheme(String theme) async {
     await _secureStorage.write(key: StoreInteractorKeys.theme.name, value: theme);
+  }
+
+  Future<String?> getContentRating() async {
+    return _secureStorage.read(key: StoreInteractorKeys.contentRating.name);
+  }
+
+  Future<void> setContentRating(String rating) async {
+    await _secureStorage.write(key: StoreInteractorKeys.contentRating.name, value: rating);
   }
 }
 
