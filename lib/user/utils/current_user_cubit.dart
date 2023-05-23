@@ -15,7 +15,7 @@ import 'package:mangadex/user/domain/user.dart';
 
 part 'current_user_state.dart';
 
-@Singleton()
+@singleton
 class CurrentUserCubit extends Cubit<CurrentUserState> {
   final GetCurrentUserUseCase _currentUserUseCase;
   final SignOutUseCase _signOutUseCase;
