@@ -10,7 +10,13 @@ import 'no_transition_route.dart';
 import 'user_drawer_router.gr.dart';
 
 @Singleton()
-@AutoRouterConfig(replaceInRouteName: 'Page,Route', generateForDir: ['lib/user/screens/user_drawer'])
+@AutoRouterConfig(
+  replaceInRouteName: 'Page,Route',
+  generateForDir: [
+    'lib/user/drawers/',
+    'lib/settings/drawers/'
+  ],
+)
 class UserDrawerRouter extends $UserDrawerRouter {
   static UserDrawerRouter get instance => GetIt.instance.get();
 
@@ -27,6 +33,10 @@ class UserDrawerRouter extends $UserDrawerRouter {
         NoTransitionRoute(
           page: UserDrawerThemeRoute.page,
           title: (context, data) => LocaleKeys.selectTheme.tr(),
+        ),
+        NoTransitionRoute(
+          page: DrawerContentRatingRoute.page,
+          title: (context, data) => LocaleKeys.contentFilter.tr(),
         ),
       ],
     ),

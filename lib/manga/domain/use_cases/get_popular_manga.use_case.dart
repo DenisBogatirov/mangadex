@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 // Project imports:
 import 'package:mangadex/manga/domain/manga.dart';
 import 'package:mangadex/manga/domain/manga.repository.dart';
+import 'package:mangadex/settings/domain/content_rating.dart';
 import 'package:mangadex/utils/relationship_type.dart';
 
 @injectable

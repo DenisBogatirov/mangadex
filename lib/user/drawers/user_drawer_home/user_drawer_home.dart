@@ -16,9 +16,9 @@ import 'package:mangadex/infrastructure/router/router.gr.dart';
 import 'package:mangadex/infrastructure/router/user_drawer_router.gr.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 import 'package:mangadex/user/domain/user.dart';
-import 'package:mangadex/user/screens/widgets/drawer_icon_button.dart';
-import 'package:mangadex/user/screens/widgets/role_chip.dart';
-import 'package:mangadex/user/screens/widgets/user_avatar.dart';
+import 'package:mangadex/user/drawers/widgets/drawer_icon_button.dart';
+import 'package:mangadex/user/drawers/widgets/role_chip.dart';
+import 'package:mangadex/user/drawers/widgets/user_avatar.dart';
 import 'package:mangadex/user/utils/current_user_cubit.dart';
 
 class _DrawerMenuOption {
@@ -263,7 +263,9 @@ class DrawerSettings extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            context.router.push(const DrawerContentRatingRoute());
+          },
           style: context.theme.textButtonTheme.style?.copyWith(
             alignment: Alignment.centerLeft,
           ),

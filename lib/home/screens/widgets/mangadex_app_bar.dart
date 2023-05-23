@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Project imports:
 import 'package:mangadex/infrastructure/mangadex_assets.dart';
 import 'package:mangadex/user/domain/user.dart';
-import 'package:mangadex/user/screens/widgets/user_avatar.dart';
+import 'package:mangadex/user/drawers/widgets/user_avatar.dart';
 import 'package:mangadex/user/utils/current_user_cubit.dart';
 import 'package:mangadex/widgets/svg_icon_button.dart';
 import 'app_logo.dart';

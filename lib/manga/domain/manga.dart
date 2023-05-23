@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:equatable/equatable.dart';
 
 // Project imports:
+import 'package:mangadex/settings/domain/content_rating.dart';
 import 'creator.dart';
 import 'manga_tag.dart';
 
@@ -13,13 +14,6 @@ enum MangaStatus {
   completed,
   hiatus,
   cancelled,
-}
-
-enum MangaContentRating {
-  safe,
-  suggestive,
-  erotica,
-  pornographic,
 }
 
 enum MangaPublicationDemographic {

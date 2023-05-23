@@ -6,6 +6,7 @@ import 'package:mangadex/manga/api/manga.client.dart';
 import 'package:mangadex/manga/api/manga.mapper.dart';
 import 'package:mangadex/manga/domain/manga.dart';
 import 'package:mangadex/manga/domain/manga.repository.dart';
+import 'package:mangadex/settings/domain/content_rating.dart';
 import 'package:mangadex/utils/relationship_type.dart';
 
 @Singleton(as: MangaRepository)

@@ -1,4 +1,5 @@
 // Project imports:
+import 'package:mangadex/settings/domain/content_rating.dart';
 import 'package:mangadex/utils/relationship_type.dart';
 import 'manga.dart';
 

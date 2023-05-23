@@ -16,6 +16,7 @@ import 'package:mangadex/infrastructure/di/di.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/router/router.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
+import 'package:mangadex/settings/drawers/user_drawer_content_rating/drawer_content_rating_cubit.dart';
 import 'package:mangadex/theme/domain/user_theme.dart';
 import 'package:mangadex/theme/theme_cubit.dart';
 import 'package:mangadex/user/utils/current_user_cubit.dart';
@@ -34,10 +35,17 @@ Future<void> main() async {
       child: MultiProvider(
         providers: [
           Provider(create: (_) => GetIt.instance),
-          Provider<ThemeCubit>(create: (context) => context.read<GetIt>().get()),
-          Provider<CurrentUserCubit>(
+          BlocProvider<ThemeCubit>(
+            lazy: false,
+            create: (context) => context.read<GetIt>().get(),
+          ),
+          BlocProvider<CurrentUserCubit>(
             lazy: false,
             create: (context) => context.read<GetIt>().get()..fetchCurrentUser(),
+          ),
+          BlocProvider<MangaContentRatingCubit>(
+            lazy: false,
+            create: (context) => context.read<GetIt>().get(),
           ),
         ],
         child: const MyApp(),
