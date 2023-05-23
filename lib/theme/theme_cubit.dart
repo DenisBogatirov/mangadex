@@ -7,7 +7,7 @@ import 'package:mangadex/theme/domain/user_theme.dart';
 import 'use_cases/get_current_theme.use_case.dart';
 import 'use_cases/save_theme.use_case.dart';
 
-@injectable
+@singleton
 class ThemeCubit extends Cubit<UserTheme> {
   final GetCurrentThemeUseCase _getCurrentThemeUseCase;
   final SaveThemeUseCase _saveThemeUseCase;
