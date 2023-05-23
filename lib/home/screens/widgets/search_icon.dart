@@ -1,13 +1,13 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 
-// Package imports:
-import 'package:hexcolor/hexcolor.dart';
-
 // Project imports:
 import 'package:mangadex/infrastructure/mangadex_assets.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/widgets/svg_icon.dart';
+
+// Package imports:
+
 
 class SearchIcon extends StatelessWidget {
   const SearchIcon({
