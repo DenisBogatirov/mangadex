@@ -18,7 +18,12 @@ class HomeRootScreen extends StatelessWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<PopularMangaCubit>(create: (context) => context.read<GetIt>().get()),
+        BlocProvider<PopularMangaCubit>(
+          create: (context) => context.read<GetIt>().get()
+            ..subscribeToContentRating(
+              context.read(),
+            ),
+        ),
       ],
       child: this,
     );
