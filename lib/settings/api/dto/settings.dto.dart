@@ -1,6 +1,3 @@
-// Dart imports:
-import 'dart:convert';
-
 // Package imports:
 import 'package:isar/isar.dart';
 import 'package:json_annotation/json_annotation.dart';
