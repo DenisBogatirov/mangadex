@@ -8,6 +8,6 @@ abstract interface class SettingsRepository {
   Stream<UserTheme> get themeStream;
   Future<void> saveTheme(UserTheme theme);
 
-  Future<List<MangaContentRating>> getContentRating();
+  Stream<List<MangaContentRating>> get contentRatingStream;
   Future<void> setContentRating(List<MangaContentRating> rating);
 }

@@ -1,3 +1,6 @@
+// Dart imports:
+import 'dart:async';
+
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 
@@ -8,23 +11,23 @@ import 'package:injectable/injectable.dart';
 
 // Project imports:
 import 'package:mangadex/settings/domain/content_rating.dart';
-import 'package:mangadex/settings/domain/use_cases/get_content_rating.use_case.dart';
+import 'package:mangadex/settings/domain/use_cases/get_content_rating_stream.use_case.dart';
 import 'package:mangadex/settings/domain/use_cases/set_content_rating.use_case.dart';
 
 part 'drawer_content_rating_state.dart';
 
 @singleton
 class MangaContentRatingCubit extends Cubit<MangaContentRatingState> {
-  final GetContentRatingUseCase _getContentRatingUseCase;
+  final GetContentRatingStreamUseCase _getContentRatingStreamUseCase;
   final SetContentRatingUseCase _setContentRatingUseCase;
+  late final StreamSubscription<List<MangaContentRating>> _ratingsSub;
 
-  MangaContentRatingCubit(this._getContentRatingUseCase, this._setContentRatingUseCase)
+  MangaContentRatingCubit(this._getContentRatingStreamUseCase, this._setContentRatingUseCase)
       : super(MangaContentRatingLoading()) {
-    _init();
+    _ratingsSub = _getContentRatingStreamUseCase(_onRatingsChange);
   }
 
-  Future<void> _init() async {
-    final ratings = await _getContentRatingUseCase();
+  void _onRatingsChange(List<MangaContentRating> ratings) async {
     emit(
       MangaContentRatingReady(ratings: ratings),
     );
@@ -35,5 +38,11 @@ class MangaContentRatingCubit extends Cubit<MangaContentRatingState> {
     emit(
       MangaContentRatingReady(ratings: ratings),
     );
+  }
+
+  @override
+  Future<void> close() {
+    _ratingsSub.cancel();
+    return super.close();
   }
 }

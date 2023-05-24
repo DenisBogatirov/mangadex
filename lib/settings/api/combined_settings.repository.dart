@@ -22,7 +22,6 @@ class CombinedSettingsRepository implements SettingsRepository {
   final Isar _isar;
 
   late final StreamSubscription _authStateSub;
-  late final Stream<SettingsWrapperDTO?> _settingsStream;
 
   CombinedSettingsRepository(
     this._settingsClient,
@@ -31,9 +30,10 @@ class CombinedSettingsRepository implements SettingsRepository {
     this._isar,
   ) {
     _authStateSub = authService.onAuthStateChange(_onAuthStateChange);
-    _settingsStream = _isar.settings.watchObject(SettingsWrapperDTO.constantId);
     syncSettings();
   }
+
+  Stream<SettingsWrapperDTO> get _settingsStream => _isar.settings.watchObject(SettingsWrapperDTO.constantId).where((settings) => settings != null).cast();
 
   void _onAuthStateChange(bool isSignedIn) {
     if (isSignedIn) {
@@ -59,9 +59,7 @@ class CombinedSettingsRepository implements SettingsRepository {
   }
 
   @override
-  Stream<UserTheme> get themeStream => _settingsStream
-      .where((settings) => settings != null)
-      .map((settings) => SettingsHelper.themeFromSettings(settings!));
+  Stream<UserTheme> get themeStream => _settingsStream.map((settings) => SettingsHelper.themeFromSettings(settings));
 
   @override
   Future<void> saveTheme(UserTheme theme) async {
@@ -75,10 +73,8 @@ class CombinedSettingsRepository implements SettingsRepository {
   }
 
   @override
-  Future<List<MangaContentRating>> getContentRating() async {
-    final settingsWrapper = await _getSettings();
-    return SettingsHelper.ratingsFromSettings(settingsWrapper);
-  }
+  Stream<List<MangaContentRating>> get contentRatingStream =>
+      _settingsStream.map((settings) => SettingsHelper.ratingsFromSettings(settings));
 
   @override
   Future<void> setContentRating(List<MangaContentRating> ratings) async {
