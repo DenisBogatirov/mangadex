@@ -1,69 +1,102 @@
+// Dart imports:
+import 'dart:async';
+
 // Package imports:
 import 'package:injectable/injectable.dart';
+import 'package:isar/isar.dart';
 
 // Project imports:
 import 'package:mangadex/auth/domain/auth.repository.dart';
-import 'package:mangadex/infrastructure/store_interactor.dart';
+import 'package:mangadex/auth/domain/auth.service.dart';
+import 'package:mangadex/settings/api/dto/settings.dto.dart';
 import 'package:mangadex/settings/api/settings.client.dart';
 import 'package:mangadex/settings/domain/content_rating.dart';
 import 'package:mangadex/settings/domain/settings.repository.dart';
 import 'package:mangadex/settings/domain/user_theme.dart';
+import 'settings_helper.dart';
 
-const _separator = ',';
-
-class _UserThemeMapper {
-  final _enumKeyMap = {for (final theme in UserTheme.values) theme: theme.toString()};
-  final _stringKeyMap = {for (final theme in UserTheme.values) theme.toString(): theme};
-
-  String themeToString(UserTheme theme) => _enumKeyMap[theme]!;
-
-  UserTheme themeFromString(String theme) => _stringKeyMap[theme]!;
-}
-
-@Singleton(as: SettingsRepository)
+@Singleton(as: SettingsRepository, dispose: disposeCombinedSettingsRepository)
 class CombinedSettingsRepository implements SettingsRepository {
-  final StoreInteractor _storeInteractor;
   final SettingsClient _settingsClient;
   final AuthRepository _authRepository;
-  final _UserThemeMapper _userThemeMapper = _UserThemeMapper();
+  final Isar _isar;
 
-  CombinedSettingsRepository(this._storeInteractor, this._settingsClient, this._authRepository) {
+  late final StreamSubscription _authStateSub;
+
+  CombinedSettingsRepository(
+    this._settingsClient,
+    this._authRepository,
+    AuthService authService,
+    this._isar,
+  ) {
+    _authStateSub = authService.onAuthStateChange(_onAuthStateChange);
     syncSettings();
+  }
+
+  void _onAuthStateChange(bool isSignedIn) {
+    if (isSignedIn) {
+      syncSettings();
+    }
+  }
+
+  Future<SettingsWrapperDTO> _getSettings() async {
+    return (await _isar.settings.get(SettingsWrapperDTO.constantId)) ?? SettingsWrapperDTO.empty();
   }
 
   @override
   Future<void> syncSettings() async {
+    SettingsWrapperDTO dto = SettingsWrapperDTO.empty();
+
     if (await _authRepository.isSignedIn()) {
-      final dto = await _settingsClient.getSettings();
+      dto = await _settingsClient.getSettings();
     }
+
+    await _isar.writeTxn(() async {
+      await _isar.settings.put(dto);
+    });
   }
 
   @override
   Future<UserTheme> getTheme() async {
-    final themeString = await _storeInteractor.getTheme();
-    return themeString != null ? _userThemeMapper.themeFromString(themeString) : UserTheme.system;
+    final settingsWrapper = await _getSettings();
+    return SettingsHelper.themeFromSettings(settingsWrapper);
   }
 
   @override
   Future<void> saveTheme(UserTheme theme) async {
-    return _storeInteractor.setTheme(_userThemeMapper.themeToString(theme));
+    final settingsWrapper = await _getSettings();
+
+    await _isar.writeTxn(() async {
+      await _isar.settings.put(
+        settingsWrapper.copyWithTheme(theme),
+      );
+    });
   }
 
   @override
   Future<List<MangaContentRating>> getContentRating() async {
-    final ratingString = await _storeInteractor.getContentRating() ?? '';
-    final strings = ratingString.isNotEmpty ? ratingString.split(_separator) : [];
-    final ratings = <MangaContentRating>[];
-
-    for (final str in strings) {
-      ratings.add(MangaContentRating.values.firstWhere((e) => e.name == str));
-    }
-
-    return ratings;
+    final settingsWrapper = await _getSettings();
+    return SettingsHelper.ratingsFromSettings(settingsWrapper);
   }
 
   @override
-  Future<void> setContentRating(List<MangaContentRating> ratings) {
-    return _storeInteractor.setContentRating(ratings.map((e) => e.name).join(_separator));
+  Future<void> setContentRating(List<MangaContentRating> ratings) async {
+    final settingsWrapper = await _getSettings();
+
+    await _isar.writeTxn(() async {
+      await _isar.settings.put(
+        settingsWrapper.copyWithRatings(ratings),
+      );
+    });
+  }
+
+  void dispose() {
+    _authStateSub.cancel();
+  }
+}
+
+FutureOr disposeCombinedSettingsRepository(SettingsRepository repository) async {
+  if (repository is CombinedSettingsRepository) {
+    repository.dispose();
   }
 }
