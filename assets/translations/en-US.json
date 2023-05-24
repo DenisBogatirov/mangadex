@@ -24,6 +24,7 @@
   "themeMode": {
     "dark": "Dark",
     "light": "Light",
+    "slate": "Slate",
     "system": "System"
   },
   "notImplemented": "Not Implemented",
