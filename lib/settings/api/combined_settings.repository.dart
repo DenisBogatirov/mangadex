@@ -22,6 +22,7 @@ class CombinedSettingsRepository implements SettingsRepository {
   final Isar _isar;
 
   late final StreamSubscription _authStateSub;
+  late final Stream<SettingsWrapperDTO?> _settingsStream;
 
   CombinedSettingsRepository(
     this._settingsClient,
@@ -30,6 +31,7 @@ class CombinedSettingsRepository implements SettingsRepository {
     this._isar,
   ) {
     _authStateSub = authService.onAuthStateChange(_onAuthStateChange);
+    _settingsStream = _isar.settings.watchObject(SettingsWrapperDTO.constantId);
     syncSettings();
   }
 
@@ -57,10 +59,9 @@ class CombinedSettingsRepository implements SettingsRepository {
   }
 
   @override
-  Future<UserTheme> getTheme() async {
-    final settingsWrapper = await _getSettings();
-    return SettingsHelper.themeFromSettings(settingsWrapper);
-  }
+  Stream<UserTheme> get themeStream => _settingsStream
+      .where((settings) => settings != null)
+      .map((settings) => SettingsHelper.themeFromSettings(settings!));
 
   @override
   Future<void> saveTheme(UserTheme theme) async {

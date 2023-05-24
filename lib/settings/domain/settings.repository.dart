@@ -5,7 +5,7 @@ import 'user_theme.dart';
 abstract interface class SettingsRepository {
   Future<void> syncSettings();
 
-  Future<UserTheme> getTheme();
+  Stream<UserTheme> get themeStream;
   Future<void> saveTheme(UserTheme theme);
 
   Future<List<MangaContentRating>> getContentRating();
