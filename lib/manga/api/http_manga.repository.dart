@@ -7,12 +7,14 @@ import 'package:mangadex/manga/api/manga.mapper.dart';
 import 'package:mangadex/manga/domain/manga.dart';
 import 'package:mangadex/manga/domain/manga.repository.dart';
 import 'package:mangadex/settings/domain/content_rating.dart';
+import 'package:mangadex/utils/date_time_json_converter.dart';
 import 'package:mangadex/utils/relationship_type.dart';
 
 @Singleton(as: MangaRepository)
 class HttpMangaRepository implements MangaRepository {
   final MangaClient _mangaClient;
   final MangaMapper _mangaMapper;
+  final DateTimeConverter _dateTimeConverter = const DateTimeConverter();
 
   const HttpMangaRepository({
     required MangaClient mangaClient,
@@ -31,7 +33,7 @@ class HttpMangaRepository implements MangaRepository {
       includes: [for (final type in includes) type.value],
       contentRating: [for (final rating in contentRating) rating.name],
       hasAvailableChapters: hasAvailableChapters,
-      createdAtSince: createdAtSince?.toUtc().toIso8601String().replaceAll(RegExp(r'\..*'), ''),
+      createdAtSince: createdAtSince != null ? _dateTimeConverter.toJson(createdAtSince) : null,
     );
 
     return dtos.data.map((dto) => _mangaMapper.toManga(dto)).toList();

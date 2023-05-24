@@ -33,7 +33,8 @@ class CombinedSettingsRepository implements SettingsRepository {
     syncSettings();
   }
 
-  Stream<SettingsWrapperDTO> get _settingsStream => _isar.settings.watchObject(SettingsWrapperDTO.constantId).where((settings) => settings != null).cast();
+  Stream<SettingsWrapperDTO> get _settingsStream =>
+      _isar.settings.watchObject(SettingsWrapperDTO.constantId).where((settings) => settings != null).cast();
 
   void _onAuthStateChange(bool isSignedIn) {
     if (isSignedIn) {
@@ -70,6 +71,8 @@ class CombinedSettingsRepository implements SettingsRepository {
         settingsWrapper.copyWithTheme(theme),
       );
     });
+
+    await _saveSettings();
   }
 
   @override
@@ -85,6 +88,15 @@ class CombinedSettingsRepository implements SettingsRepository {
         settingsWrapper.copyWithRatings(ratings),
       );
     });
+
+    await _saveSettings();
+  }
+
+  Future<void> _saveSettings() async {
+    final settings = (await _isar.settings.get(SettingsWrapperDTO.constantId))!;
+    await _settingsClient.saveSettings(settings.copyWith(
+      updatedAt: DateTime.now(),
+    ));
   }
 
   void dispose() {

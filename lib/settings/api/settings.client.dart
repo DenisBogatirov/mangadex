@@ -17,4 +17,7 @@ abstract class SettingsClient {
 
   @GET('/settings')
   Future<SettingsWrapperDTO> getSettings();
+
+  @POST('/settings')
+  Future<SettingsWrapperDTO> saveSettings(@Body() SettingsWrapperDTO settingsWrapperDTO);
 }

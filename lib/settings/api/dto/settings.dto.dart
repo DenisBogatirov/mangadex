@@ -1,8 +1,12 @@
+// Dart imports:
+import 'dart:convert';
+
 // Package imports:
 import 'package:isar/isar.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
+import 'package:mangadex/utils/date_time_json_converter.dart';
 import 'package:mangadex/utils/isar_utils.dart';
 
 part 'settings.dto.g.dart';
@@ -13,9 +17,15 @@ class SettingsWrapperDTO {
   static final constantId = fastHash('singleton_settings');
   Id get id => constantId;
 
+  @JsonKey(includeToJson: false)
   final String result;
+
+  @DateTimeConverter()
   final DateTime updatedAt;
+
   final SettingsDTO settings;
+
+  @JsonKey(includeToJson: false)
   final String template;
 
   const SettingsWrapperDTO({
