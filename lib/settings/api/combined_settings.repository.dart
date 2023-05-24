@@ -2,7 +2,9 @@
 import 'package:injectable/injectable.dart';
 
 // Project imports:
+import 'package:mangadex/auth/domain/auth.repository.dart';
 import 'package:mangadex/infrastructure/store_interactor.dart';
+import 'package:mangadex/settings/api/settings.client.dart';
 import 'package:mangadex/settings/domain/content_rating.dart';
 import 'package:mangadex/settings/domain/settings.repository.dart';
 import 'package:mangadex/settings/domain/user_theme.dart';
@@ -18,12 +20,23 @@ class _UserThemeMapper {
   UserTheme themeFromString(String theme) => _stringKeyMap[theme]!;
 }
 
-@LazySingleton(as: SettingsRepository)
+@Singleton(as: SettingsRepository)
 class CombinedSettingsRepository implements SettingsRepository {
   final StoreInteractor _storeInteractor;
+  final SettingsClient _settingsClient;
+  final AuthRepository _authRepository;
   final _UserThemeMapper _userThemeMapper = _UserThemeMapper();
 
-  CombinedSettingsRepository(this._storeInteractor);
+  CombinedSettingsRepository(this._storeInteractor, this._settingsClient, this._authRepository) {
+    syncSettings();
+  }
+
+  @override
+  Future<void> syncSettings() async {
+    if (await _authRepository.isSignedIn()) {
+      final dto = await _settingsClient.getSettings();
+    }
+  }
 
   @override
   Future<UserTheme> getTheme() async {

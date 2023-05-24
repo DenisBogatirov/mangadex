@@ -3,6 +3,8 @@ import 'content_rating.dart';
 import 'user_theme.dart';
 
 abstract interface class SettingsRepository {
+  Future<void> syncSettings();
+
   Future<UserTheme> getTheme();
   Future<void> saveTheme(UserTheme theme);
 
