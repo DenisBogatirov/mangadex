@@ -9,36 +9,35 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton()
 class AuthService {
-  late final Stream<void> _signOutStream;
-  late final Stream<void> _signInStream;
-  late final StreamController<void> _signOutSink;
-  late final StreamController<void> _signInSink;
+  late final Stream<bool> _signAuthState;
+  late final StreamController<bool> _authStateSink;
 
   AuthService() {
-    _signOutSink = StreamController.broadcast();
-    _signInSink = StreamController.broadcast();
-    _signOutStream = _signOutSink.stream;
-    _signInStream = _signInSink.stream;
+    _authStateSink = StreamController.broadcast();
+    _signAuthState = _authStateSink.stream;
   }
 
   void notifySignOut() {
-    _signOutSink.add(null);
+    _authStateSink.add(false);
   }
 
   void notifySignIn() {
-    _signInSink.add(null);
+    _authStateSink.add(true);
   }
 
-  StreamSubscription<void> onSignOut(ValueChanged<void> callback) {
-    return _signOutStream.listen(callback);
+  StreamSubscription<void> onSignOut(ValueChanged<bool> callback) {
+    return _signAuthState.where((isSignedIn) => !isSignedIn).listen(callback);
   }
 
-  StreamSubscription<void> onSignIn(ValueChanged<void> callback) {
-    return _signInStream.listen(callback);
+  StreamSubscription<void> onSignIn(ValueChanged<bool> callback) {
+    return _signAuthState.where((isSignedIn) => isSignedIn).listen(callback);
+  }
+
+  StreamSubscription<void> onAuthStateChange(ValueChanged<bool> callback) {
+    return _signAuthState.listen(callback);
   }
 
   void dispose() {
-    _signOutSink.close();
-    _signInSink.close();
+    _authStateSink.close();
   }
 }
