@@ -156,6 +156,7 @@ extension UserThemeExtension on ThemeMode {
         return ThemeMode.dark;
       case UserTheme.light:
         return ThemeMode.light;
+      case UserTheme.slate:
       case UserTheme.system:
       default:
         return ThemeMode.system;

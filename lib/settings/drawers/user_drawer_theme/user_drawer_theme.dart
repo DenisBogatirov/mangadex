@@ -14,16 +14,6 @@ import 'package:mangadex/settings/domain/user_theme.dart';
 import 'package:mangadex/settings/drawers/user_drawer_theme/theme_cubit.dart';
 import 'package:mangadex/widgets/svg_icon.dart';
 
-final class _ThemeLocaleMapper {
-  static final _localeMap = {
-    UserTheme.light: LocaleKeys.themeMode_light,
-    UserTheme.system: LocaleKeys.themeMode_system,
-    UserTheme.dark: LocaleKeys.themeMode_dark,
-  };
-
-  static String translate(UserTheme theme) => _localeMap[theme]!.tr();
-}
-
 @RoutePage()
 class UserDrawerThemePage extends StatelessWidget {
   const UserDrawerThemePage({super.key});
@@ -46,7 +36,7 @@ class UserDrawerThemePage extends StatelessWidget {
               },
               child: Row(
                 children: [
-                  Text(_ThemeLocaleMapper.translate(theme)),
+                  Text([LocaleKeys.themeMode, theme.name].join('.').tr()),
                   if (isSelected) ...{
                     const VerticalDivider(),
                     SvgIcon(
