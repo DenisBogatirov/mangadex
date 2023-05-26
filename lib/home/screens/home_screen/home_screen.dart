@@ -7,12 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 // Project imports:
-import 'package:mangadex/home/screens/home_root_screen/widgets/popular_manga_cubit/popular_manga_cubit.dart';
 import 'widgets/popular_manga_cubit/popular_manga.dart';
+import 'widgets/popular_manga_cubit/popular_manga_cubit.dart';
 
 @RoutePage()
-class HomeRootScreen extends StatelessWidget implements AutoRouteWrapper {
-  const HomeRootScreen({super.key});
+class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
+  const HomeScreen({super.key});
 
   @override
   Widget wrappedRoute(BuildContext context) {

@@ -10,16 +10,16 @@ import 'package:mangadex/widgets/drawer_container.dart';
 import 'widgets/mangadex_app_bar.dart';
 
 @RoutePage()
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
+class HomeRootScreen extends StatefulWidget {
+  const HomeRootScreen({
     super.key,
   });
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeRootScreen> createState() => _HomeRootScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeRootScreenState extends State<HomeRootScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _drawerRouter = UserDrawerRouter.instance;
 

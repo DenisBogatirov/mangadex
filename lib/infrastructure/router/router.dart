@@ -16,9 +16,9 @@ class AppRouter extends $AppRouter {
     AutoRoute(path: '/sign-in', page: SignInRoute.page),
     AutoRoute(
       path: '/',
-      page: HomeRoute.page,
+      page: HomeRootRoute.page,
       children: [
-        AutoRoute(page: HomeRootRoute.page, initial: true),
+        AutoRoute(page: HomeRoute.page, initial: true),
         AutoRoute(path: 'not-implemented', page: NotImplementedRoute.page)
       ],
     ),
