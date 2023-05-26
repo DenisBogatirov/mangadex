@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/manga/domain/manga.dart';
 
 class MangaDescription extends StatelessWidget {
