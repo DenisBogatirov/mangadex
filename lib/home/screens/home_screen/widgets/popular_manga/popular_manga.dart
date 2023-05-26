@@ -1,18 +1,14 @@
-// Dart imports:
-import 'dart:ui';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Project imports:
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
-import 'package:mangadex/manga/domain/manga.dart';
+import 'package:mangadex/widgets/manga/manga_backdrop.dart';
 import 'package:mangadex/widgets/media_query_builder.dart';
 import 'popular_manga_cubit.dart';
 import 'widgets/popular_manga_tile.dart';
@@ -43,12 +39,13 @@ class _PopularMangaState extends State<PopularManga> {
                 return switch (state) {
                   PopularMangaLoading() => const SizedBox.shrink(),
                   PopularMangaReady(manga: final mangaList) => PageView.builder(
+                      pageSnapping: false,
                       onPageChanged: _onPageChanged,
                       controller: _backDropController,
                       itemBuilder: (context, index) {
                         final manga = mangaList[index % 10];
 
-                        return MangaBackDrop(manga: manga);
+                        return MangaBackdrop(manga: manga);
                       },
                     ),
                 };
@@ -120,49 +117,4 @@ class _PopularMangaState extends State<PopularManga> {
       _page = (page % 10) + 1;
     });
   }
-}
-
-class MangaBackDrop extends StatefulWidget {
-  final Manga manga;
-
-  const MangaBackDrop({
-    super.key,
-    required this.manga,
-  });
-
-  @override
-  State<MangaBackDrop> createState() => _MangaBackDropState();
-}
-
-class _MangaBackDropState extends State<MangaBackDrop> with AutomaticKeepAliveClientMixin<MangaBackDrop> {
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return Stack(
-      children: [
-        Positioned.fill(child: CachedNetworkImage(imageUrl: widget.manga.coverArt, fit: BoxFit.cover)),
-        BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  context.theme.colorScheme.background,
-                  context.theme.colorScheme.background.withOpacity(0.5),
-                  context.theme.colorScheme.background.withOpacity(0.5),
-                  context.theme.colorScheme.background,
-                ],
-              ),
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  @override
-  bool get wantKeepAlive => true;
 }
