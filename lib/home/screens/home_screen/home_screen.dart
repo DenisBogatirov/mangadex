@@ -33,13 +33,15 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
   Widget build(BuildContext context) {
     return const CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(
-          child: PopularManga(),
-        ),
+        // SliverOverlapInjector(handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context)),
+        SliverToBoxAdapter(child: PopularManga()),
         SliverFillRemaining(
           hasScrollBody: false,
           child: Placeholder(),
-        )
+        ),
+        SliverToBoxAdapter(child: Placeholder(fallbackHeight: 100)),
+        SliverToBoxAdapter(child: Placeholder(fallbackHeight: 100)),
+        SliverToBoxAdapter(child: Placeholder(fallbackHeight: 100)),
       ],
     );
   }

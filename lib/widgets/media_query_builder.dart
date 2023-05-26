@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:collection/collection.dart';
 
-enum _MediaQueryStop {
+enum MediaQueryStop {
   mobile(0),
   tablet(640),
   desktop(768);
 
   final int stop;
 
-  const _MediaQueryStop(this.stop);
+  const MediaQueryStop(this.stop);
 
-  static List<_MediaQueryStop> get sorted => values.sorted((a, b) => b.stop - a.stop);
+  static List<MediaQueryStop> get sorted => values.sorted((a, b) => b.stop - a.stop);
 }
 
 class MediaQueryBuilder extends StatelessWidget {
@@ -31,14 +31,14 @@ class MediaQueryBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final builders = {
-      _MediaQueryStop.mobile: mobile,
-      _MediaQueryStop.tablet: tablet ?? mobile,
-      _MediaQueryStop.desktop: desktop ?? tablet ?? mobile,
+      MediaQueryStop.mobile: mobile,
+      MediaQueryStop.tablet: tablet ?? mobile,
+      MediaQueryStop.desktop: desktop ?? tablet ?? mobile,
     };
 
     final width = MediaQuery.of(context).size.width;
 
-    for (final stop in _MediaQueryStop.sorted) {
+    for (final stop in MediaQueryStop.sorted) {
       if (width >= stop.stop) {
         return builders[stop]!(context);
       }

@@ -25,32 +25,43 @@ class MangaDexAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final scaffold = Scaffold.of(context);
 
-    return AppBar(
-      leading: SvgIconButton(
-        asset: Assets.assetsMenuIcon,
-        onPressed: () => scaffold.openDrawer(),
-      ),
-      title: const AppBarLogo(),
-      centerTitle: false,
-      actions: [
-        const SearchIcon(),
-        IconButton(
-          icon: BlocBuilder<CurrentUserCubit, CurrentUserState>(
-            builder: (context, state) {
-              return switch (state) {
-                CurrentUserLoading() => const SizedBox.square(
-                    dimension: 16,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                    ),
-                  ),
-                CurrentUserReady(user: User user) => UserAvatar(url: user.avatar),
-              };
-            },
+    // return Consumer<ScrollController>(
+    //   builder: (context, notifier, child) {
+    //     final opacity = notifier.position.pixels.clamp(0.0, kToolbarHeight) / kToolbarHeight;
+
+        return SliverAppBar(
+          pinned: true,
+          // shadowColor: context.theme.appBarTheme.shadowColor?.withOpacity(opacity),
+          // backgroundColor: context.theme.appBarTheme.backgroundColor?.withOpacity(opacity),
+          shadowColor: Colors.transparent,
+          backgroundColor: Colors.transparent,
+          leading: SvgIconButton(
+            asset: Assets.assetsMenuIcon,
+            onPressed: () => scaffold.openDrawer(),
           ),
-          onPressed: () => scaffold.openEndDrawer(),
-        ),
-      ],
-    );
+          title: const AppBarLogo(),
+          centerTitle: false,
+          actions: [
+            const SearchIcon(),
+            IconButton(
+              icon: BlocBuilder<CurrentUserCubit, CurrentUserState>(
+                builder: (context, state) {
+                  return switch (state) {
+                    CurrentUserLoading() => const SizedBox.square(
+                        dimension: 16,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                        ),
+                      ),
+                    CurrentUserReady(user: User user) => UserAvatar(url: user.avatar),
+                  };
+                },
+              ),
+              onPressed: () => scaffold.openEndDrawer(),
+            ),
+          ],
+        );
+    //   }
+    // );
   }
 }

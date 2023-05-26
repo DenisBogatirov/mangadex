@@ -10,43 +10,24 @@ class _PopularMangaTitleMobile extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        CachedNetworkImage(imageUrl: manga.coverArt, fit: BoxFit.cover),
-        BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  context.theme.colorScheme.background,
-                  context.theme.colorScheme.background.withOpacity(0.5),
-                  context.theme.colorScheme.background.withOpacity(0.5),
-                  context.theme.colorScheme.background,
-                ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 64.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              MobileMangaCoverArtImage(url: manga.coverArt256),
+              const VerticalDivider(),
+              Flexible(
+                flex: 5,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MangaTitle(manga: manga),
+                    MangaCreatorsRow(manga: manga),
+                  ],
+                ),
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 64.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  MobileMangaCoverArtImage(url: manga.coverArt256),
-                  const VerticalDivider(),
-                  Flexible(
-                    flex: 5,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        MangaTitle(manga: manga),
-                        MangaCreatorsRow(manga: manga),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            ],
           ),
         ),
       ],

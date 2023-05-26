@@ -27,7 +27,6 @@ class _HomeRootScreenState extends State<HomeRootScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: const MangaDexAppBar(),
       drawerEdgeDragWidth: 0,
       drawer: const DrawerContainer(
         child: SafeArea(
@@ -40,7 +39,17 @@ class _HomeRootScreenState extends State<HomeRootScreen> {
           config: _drawerRouter.config(),
         ),
       ),
-      body: const AutoRouter(),
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return [
+            SliverOverlapAbsorber(
+              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+              sliver: const MangaDexAppBar(),
+            )
+          ];
+        },
+        body: const AutoRouter(),
+      ),
     );
   }
 }
