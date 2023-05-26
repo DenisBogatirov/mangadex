@@ -26,7 +26,7 @@ class PopularManga extends StatefulWidget {
 }
 
 class _PopularMangaState extends State<PopularManga> {
-  final PageController _pageController = PageController();
+  final PageController _pageController = PageController(initialPage: 10);
   final PageController _backDropController = PageController();
 
   int _page = 1;
