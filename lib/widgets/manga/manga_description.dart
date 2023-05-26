@@ -19,10 +19,14 @@ class MangaDescription extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    return Text(
-      // TODO: Adjust with content language
-      manga.description.entries.first.value,
-      // style: context.theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
+    return Scrollbar(
+      child: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
+        child: Text(
+          // TODO: Adjust with content language
+          manga.description.entries.first.value,
+        ),
+      ),
     );
   }
 }
