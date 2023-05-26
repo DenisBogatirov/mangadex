@@ -39,10 +39,8 @@ class _PopularMangaTileState extends State<PopularMangaTile> with AutomaticKeepA
     super.build(context);
 
     return MediaQueryBuilder(
-      stops: {
-        640: (context) => _PopularMangaTitleTablet(manga: widget.manga),
-      },
-      fallback: (context) => _PopularMangaTitleMobile(manga: widget.manga),
+      tablet: (context) => _PopularMangaTitleTablet(manga: widget.manga),
+      mobile: (context) => _PopularMangaTitleMobile(manga: widget.manga),
     );
   }
 

@@ -37,10 +37,8 @@ class PopularPaginator extends StatelessWidget {
       height: kPopularPaginatorHeight,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: MediaQueryBuilder(
-        stops: {
-          640: (context) => _PopularPaginatorTablet(onPrev: onPrev, onNext: onNext),
-        },
-        fallback: (context) => _PopularPaginatorMobile(
+        tablet: (context) => _PopularPaginatorTablet(onPrev: onPrev, onNext: onNext),
+        mobile: (context) => _PopularPaginatorMobile(
           onPrev: onPrev,
           onNext: onNext,
           text: '$page/$total',

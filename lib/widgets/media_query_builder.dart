@@ -4,31 +4,46 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:collection/collection.dart';
 
+enum _MediaQueryStop {
+  mobile(0),
+  tablet(640),
+  desktop(768);
+
+  final int stop;
+
+  const _MediaQueryStop(this.stop);
+
+  static List<_MediaQueryStop> get sorted => values.sorted((a, b) => b.stop - a.stop);
+}
+
 class MediaQueryBuilder extends StatelessWidget {
-  final WidgetBuilder fallback;
-  final Map<int, WidgetBuilder>? stops;
+  final WidgetBuilder mobile;
+  final WidgetBuilder? tablet;
+  final WidgetBuilder? desktop;
 
   const MediaQueryBuilder({
     super.key,
-    required this.fallback,
-    this.stops,
+    required this.mobile,
+    this.tablet,
+    this.desktop,
   });
 
   @override
   Widget build(BuildContext context) {
-    final stops = this.stops;
+    final builders = {
+      _MediaQueryStop.mobile: mobile,
+      _MediaQueryStop.tablet: tablet ?? mobile,
+      _MediaQueryStop.desktop: desktop ?? tablet ?? mobile,
+    };
 
-    if (stops != null && stops.isNotEmpty) {
-      final width = MediaQuery.of(context).size.width;
-      final sorted = stops.keys.sorted((a, b) => b - a);
+    final width = MediaQuery.of(context).size.width;
 
-      for (final stop in sorted) {
-        if (width >= stop) {
-          return stops[stop]!(context);
-        }
+    for (final stop in _MediaQueryStop.sorted) {
+      if (width >= stop.stop) {
+        return builders[stop]!(context);
       }
     }
 
-    return fallback(context);
+    return mobile(context);
   }
 }
