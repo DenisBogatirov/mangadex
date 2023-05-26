@@ -33,7 +33,7 @@ class _DrawerMenuOption {
   }) : _destination = destination;
 
   void navigate(BuildContext context) {
-    final router = AppRouter.instance.innerRouterOf<StackRouter>(HomeRoute.name)!;
+    final router = AppRouter.instance.innerRouterOf<StackRouter>(HomeRootRoute.name)!;
     Scaffold.of(context).closeEndDrawer();
 
     router.replaceAll([_destination()]);

@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 // Project imports:
-import 'widgets/popular_manga_cubit/popular_manga.dart';
-import 'widgets/popular_manga_cubit/popular_manga_cubit.dart';
+import 'widgets/popular_manga/popular_manga.dart';
+import 'widgets/popular_manga/popular_manga_cubit.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
