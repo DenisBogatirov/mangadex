@@ -23,6 +23,7 @@ class PopularMangaCubit extends Cubit<PopularMangaState> {
 
   void subscribeToContentRating(MangaContentRatingCubit mangaContentRatingCubit) {
     _contentRatingSubscription = mangaContentRatingCubit.stream.listen(_onRatingChange);
+    _onRatingChange(mangaContentRatingCubit.state);
   }
 
   void _onRatingChange(MangaContentRatingState state) async {

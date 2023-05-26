@@ -33,8 +33,10 @@ class CombinedSettingsRepository implements SettingsRepository {
     syncSettings();
   }
 
-  Stream<SettingsWrapperDTO> get _settingsStream =>
-      _isar.settings.watchObject(SettingsWrapperDTO.constantId).where((settings) => settings != null).cast();
+  Stream<SettingsWrapperDTO> get _settingsStream => _isar.settings
+      .watchObject(SettingsWrapperDTO.constantId, fireImmediately: true)
+      .where((settings) => settings != null)
+      .cast<SettingsWrapperDTO>();
 
   void _onAuthStateChange(bool isSignedIn) {
     if (isSignedIn) {
