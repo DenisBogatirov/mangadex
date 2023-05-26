@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 
 // Project imports:
 import 'widgets/popular_manga/popular_manga.dart';
@@ -31,18 +32,20 @@ class HomeScreen extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomScrollView(
-      slivers: [
-        // SliverOverlapInjector(handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context)),
-        SliverToBoxAdapter(child: PopularManga()),
-        SliverFillRemaining(
-          hasScrollBody: false,
-          child: Placeholder(),
-        ),
-        SliverToBoxAdapter(child: Placeholder(fallbackHeight: 100)),
-        SliverToBoxAdapter(child: Placeholder(fallbackHeight: 100)),
-        SliverToBoxAdapter(child: Placeholder(fallbackHeight: 100)),
-      ],
-    );
+    return Consumer<ScrollController>(builder: (context, controller, _) {
+      return CustomScrollView(
+        controller: controller,
+        slivers: const [
+          // SliverOverlapInjector(handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context)),
+          SliverToBoxAdapter(child: PopularManga()),
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Placeholder(),
+          ),
+          SliverToBoxAdapter(child: Placeholder(fallbackHeight: 200)),
+          SliverToBoxAdapter(child: Placeholder(fallbackHeight: 200)),
+        ],
+      );
+    });
   }
 }

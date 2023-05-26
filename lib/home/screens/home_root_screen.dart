@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:auto_route/auto_route.dart';
+import 'package:provider/provider.dart';
 
 // Project imports:
 import 'package:mangadex/infrastructure/router/user_drawer_router.dart';
@@ -22,33 +23,37 @@ class HomeRootScreen extends StatefulWidget {
 class _HomeRootScreenState extends State<HomeRootScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _drawerRouter = UserDrawerRouter.instance;
+  final _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      drawerEdgeDragWidth: 0,
-      drawer: const DrawerContainer(
-        child: SafeArea(
-          child: Placeholder(),
+    return ChangeNotifierProvider.value(
+      value: _scrollController,
+      child: Scaffold(
+        key: _scaffoldKey,
+        drawerEdgeDragWidth: 0,
+        drawer: const DrawerContainer(
+          child: SafeArea(
+            child: Placeholder(),
+          ),
         ),
-      ),
-      endDrawer: DrawerContainer(
-        child: Router.withConfig(
-          restorationScopeId: 'user_drawer_router_id',
-          config: _drawerRouter.config(),
+        endDrawer: DrawerContainer(
+          child: Router.withConfig(
+            restorationScopeId: 'user_drawer_router_id',
+            config: _drawerRouter.config(),
+          ),
         ),
-      ),
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return [
-            SliverOverlapAbsorber(
-              handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-              sliver: const MangaDexAppBar(),
-            )
-          ];
-        },
-        body: const AutoRouter(),
+        body: NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return [
+              SliverOverlapAbsorber(
+                handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                sliver: const MangaDexAppBar(),
+              )
+            ];
+          },
+          body: const AutoRouter(),
+        ),
       ),
     );
   }
