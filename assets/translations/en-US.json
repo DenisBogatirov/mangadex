@@ -41,5 +41,6 @@
     "suggestive": "Suggestive",
     "erotica":  "Erotica",
     "pornographic": "Pornographic"
-  }
+  },
+  "pageNumber": "No. {page}"
 }

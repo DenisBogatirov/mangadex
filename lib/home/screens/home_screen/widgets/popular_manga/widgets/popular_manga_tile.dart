@@ -13,13 +13,14 @@ import 'package:mangadex/manga/domain/manga.dart';
 import 'package:mangadex/utils/cover_art_extension.dart';
 import 'package:mangadex/widgets/manga/manga_cover_art.dart';
 import 'package:mangadex/widgets/manga/manga_creator_row.dart';
+import 'package:mangadex/widgets/manga/manga_description.dart';
 import 'package:mangadex/widgets/manga/manga_tags.dart';
 import 'package:mangadex/widgets/manga/manga_title.dart';
 import 'package:mangadex/widgets/media_query_builder.dart';
 
 part 'mobile_popular_manga_tile.dart';
-
 part 'tablet_popular_manga_tile.dart';
+part 'desktop_popular_manga_tile.dart';
 
 class PopularMangaTile extends StatefulWidget {
   final Manga manga;
@@ -39,6 +40,7 @@ class _PopularMangaTileState extends State<PopularMangaTile> with AutomaticKeepA
     super.build(context);
 
     return MediaQueryBuilder(
+      desktop: (context) => _PopularMangaTitleDesktop(manga: widget.manga),
       tablet: (context) => _PopularMangaTitleTablet(manga: widget.manga),
       mobile: (context) => _PopularMangaTitleMobile(manga: widget.manga),
     );

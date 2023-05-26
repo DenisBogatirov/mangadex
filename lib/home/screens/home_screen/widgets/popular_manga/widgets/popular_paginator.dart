@@ -2,18 +2,20 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
+import 'package:easy_localization/easy_localization.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 // Project imports:
 import 'package:mangadex/infrastructure/mangadex_assets.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
+import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 import 'package:mangadex/widgets/media_query_builder.dart';
 import 'package:mangadex/widgets/svg_icon.dart';
 import 'package:mangadex/widgets/svg_icon_button.dart';
 
 part 'mobile_popular_paginator.dart';
-
 part 'tablet_popular_paginator.dart';
+part 'desktop_popular_paginator.dart';
 
 const kPopularPaginatorHeight = 64.0;
 const kPaginatorDuration = Duration(milliseconds: 400);
@@ -37,6 +39,11 @@ class PopularPaginator extends StatelessWidget {
       height: kPopularPaginatorHeight,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: MediaQueryBuilder(
+        desktop: (context) => _PopularPaginatorDesktop(
+          onPrev: onPrev,
+          onNext: onNext,
+          page: page,
+        ),
         tablet: (context) => _PopularPaginatorTablet(onPrev: onPrev, onNext: onNext),
         mobile: (context) => _PopularPaginatorMobile(
           onPrev: onPrev,

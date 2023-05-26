@@ -8,11 +8,13 @@ import 'package:mangadex/manga/domain/manga.dart';
 class MangaCreatorsRow extends StatelessWidget {
   final Manga manga;
   final bool italic;
+  final bool bold;
 
   const MangaCreatorsRow({
     super.key,
     required this.manga,
     this.italic = false,
+    this.bold = false,
   });
 
   @override
@@ -23,6 +25,7 @@ class MangaCreatorsRow extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         style: context.theme.textTheme.bodyMedium?.copyWith(
           fontStyle: italic ? FontStyle.italic : FontStyle.normal,
+          fontWeight: bold ? FontWeight.bold : FontWeight.normal,
         ),
       );
   }
