@@ -39,18 +39,8 @@ class _PopularMangaTitleMobile extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          // TODO: Adjust with content language
-                          manga.title.entries.first.value,
-                          maxLines: 3,
-                          style:
-                              context.theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          [...manga.authors, ...manga.artists].map((c) => c.name).toSet().join(', '),
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        MangaTitle(manga: manga),
+                        MangaCreatorsRow(manga: manga),
                       ],
                     ),
                   ),
@@ -60,32 +50,6 @@ class _PopularMangaTitleMobile extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class MobileMangaCoverArtImage extends StatelessWidget {
-  final String url;
-
-  const MobileMangaCoverArtImage({super.key, required this.url});
-
-  @override
-  Widget build(BuildContext context) {
-    return LimitedBox(
-      maxWidth: 128,
-      child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-        child: CachedNetworkImage(
-          imageUrl: url,
-          fit: BoxFit.cover,
-          width: double.infinity,
-          height: double.infinity,
-          alignment: Alignment.topCenter,
-          progressIndicatorBuilder: (context, url, progress) => const Center(
-            child: CircularProgressIndicator(),
-          ),
-        ),
-      ),
     );
   }
 }

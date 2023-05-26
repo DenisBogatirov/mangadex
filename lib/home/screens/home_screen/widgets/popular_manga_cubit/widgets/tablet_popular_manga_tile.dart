@@ -25,68 +25,24 @@ class _PopularMangaTitleTablet extends StatelessWidget {
             Expanded(
               child: SizedBox(
                 width: double.infinity,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      // TODO: Adjust with content language
-                      manga.title.entries.first.value,
-                      maxLines: 3,
-                      style: context.theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Divider(
-                      height: context.theme.dividerTheme.space! / 2,
-                    ),
-                    Wrap(
-                      spacing: 10,
-                      runSpacing: 5,
-                      children: [
-                        MangaTagChip.contentRating(manga.contentRating),
-                        for (final tag in manga.tags) MangaTagChip(tag.name.values.first)
-                      ],
-                    ),
-                    Divider(
-                      height: context.theme.dividerTheme.space! / 2,
-                    ),
-                    Text(
-                      [...manga.authors, ...manga.artists].map((c) => c.name).toSet().join(', '),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+                child: DividerTheme(
+                  data: context.theme.dividerTheme.copyWith(
+                    space: context.theme.dividerTheme.space! / 2,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MangaTitle(manga: manga),
+                      const Divider(),
+                      MangaTags(manga: manga),
+                      const Divider(),
+                      MangaCreatorsRow(manga: manga, italic: true),
+                    ],
+                  ),
                 ),
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class TabletMangaCoverArtImage extends StatelessWidget {
-  final String url;
-
-  const TabletMangaCoverArtImage({super.key, required this.url});
-
-  @override
-  Widget build(BuildContext context) {
-    return LimitedBox(
-      maxWidth: 128,
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-          child: CachedNetworkImage(
-            imageUrl: url,
-            fit: BoxFit.contain,
-            alignment: Alignment.topCenter,
-            width: double.infinity,
-            height: double.infinity,
-            progressIndicatorBuilder: (context, url, progress) => const Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
         ),
       ),
     );
