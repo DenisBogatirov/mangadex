@@ -36,7 +36,14 @@ class _PopularMangaTitleDesktop extends StatelessWidget {
                       const Divider(),
                       MangaTags(manga: manga),
                       Divider(height: context.theme.dividerTheme.space!),
-                      Expanded(child: MangaDescription(manga: manga)),
+                      Expanded(
+                        child: Scrollbar(
+                          child: SingleChildScrollView(
+                            physics: const ClampingScrollPhysics(),
+                            child: MangaDescription(manga: manga),
+                          ),
+                        ),
+                      ),
                       const Divider(),
                       MangaCreatorsRow(manga: manga, italic: true, bold: true),
                     ],

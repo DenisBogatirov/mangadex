@@ -19,14 +19,9 @@ class MangaDescription extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    return Scrollbar(
-      child: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
-        child: Text(
-          // TODO: Adjust with content language
-          manga.description.entries.first.value,
-        ),
-      ),
+    return Text(
+      // TODO: Adjust with content language
+      manga.description.entries.first.value,
     );
   }
 }
