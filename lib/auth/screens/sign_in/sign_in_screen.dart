@@ -115,6 +115,9 @@ class _SignInScreenState extends State<SignInScreen> {
 
   Future<void> _onSubmit() async {
     FocusScope.of(context).unfocus();
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final theme = context.theme;
+
     final payload = UsernamePayload(
       username: formGroup.control(SignInField.username.value).value as String,
       password: formGroup.control(SignInField.password.value).value as String,
@@ -126,13 +129,13 @@ class _SignInScreenState extends State<SignInScreen> {
     } on WrongSignInCredentialsException catch (_) {
       formGroup.control(SignInField.username.value).setErrors({UsernameValidationMessages.invalid: true});
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      scaffoldMessenger.showSnackBar(
         SnackBar(
           content: Text(
             '!!UNKNOWN ERROR!!',
-            style: context.theme.textTheme.titleMedium!.copyWith(color: context.theme.colorScheme.onError),
+            style: theme.textTheme.titleMedium!.copyWith(color: theme.colorScheme.onError),
           ),
-          backgroundColor: context.theme.colorScheme.error,
+          backgroundColor: theme.colorScheme.error,
         ),
       );
     }

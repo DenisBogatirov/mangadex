@@ -11,7 +11,7 @@ import 'package:url_launcher/url_launcher.dart' as url_launcher;
 import 'package:mangadex/home/drawers/widgets/drawer_icon_button.dart';
 import 'package:mangadex/home/drawers/widgets/role_chip.dart';
 import 'package:mangadex/home/drawers/widgets/user_avatar.dart';
-import 'package:mangadex/infrastructure/mangadex_assets.dart';
+import 'package:mangadex/infrastructure/assets.gen.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/mangadex_urls.dart';
 import 'package:mangadex/infrastructure/router/router.dart';
@@ -43,32 +43,32 @@ class _DrawerMenuOption {
 final _menuOptions = [
   _DrawerMenuOption(
     title: () => LocaleKeys.myProfile.tr(),
-    iconAsset: Assets.assetsGuestIcon,
+    iconAsset: Assets.guestIcon,
     destination: () => const NotImplementedRoute(),
   ),
   _DrawerMenuOption(
     title: () => LocaleKeys.myFollows.tr(),
-    iconAsset: Assets.assetsFollowsIcon,
+    iconAsset: Assets.followsIcon,
     destination: () => const NotImplementedRoute(),
   ),
   _DrawerMenuOption(
     title: () => LocaleKeys.myLists.tr(),
-    iconAsset: Assets.assetsListIcon,
+    iconAsset: Assets.listIcon,
     destination: () => const NotImplementedRoute(),
   ),
   _DrawerMenuOption(
     title: () => LocaleKeys.myGroups.tr(),
-    iconAsset: Assets.assetsGroupIcon,
+    iconAsset: Assets.groupIcon,
     destination: () => const NotImplementedRoute(),
   ),
   _DrawerMenuOption(
     title: () => LocaleKeys.myReports.tr(),
-    iconAsset: Assets.assetsReportIcon,
+    iconAsset: Assets.reportIcon,
     destination: () => const NotImplementedRoute(),
   ),
   _DrawerMenuOption(
     title: () => LocaleKeys.announcements.tr(),
-    iconAsset: Assets.assetsAnnouncementIcon,
+    iconAsset: Assets.announcementIcon,
     destination: () => const NotImplementedRoute(),
   ),
 ];
@@ -143,7 +143,7 @@ class UserDrawerHomePage extends StatelessWidget {
                         DrawerIconButton(
                           onPressed: () => context.read<CurrentUserCubit>().signOut(),
                           text: LocaleKeys.signOut.tr(),
-                          iconAsset: Assets.assetsSignOutIcon,
+                          iconAsset: Assets.signOutIcon,
                         ),
                       }
                     ],
@@ -225,7 +225,7 @@ class DrawerSettings extends StatelessWidget {
             DrawerIconButton(
               onPressed: () {},
               text: LocaleKeys.settings.tr(),
-              iconAsset: Assets.assetsSettingsIcon,
+              iconAsset: Assets.settingsIcon,
             ),
             const VerticalDivider(),
             DrawerIconButton(
@@ -233,7 +233,7 @@ class DrawerSettings extends StatelessWidget {
                 context.router.push(const UserDrawerThemeRoute());
               },
               text: LocaleKeys.theme.tr(),
-              iconAsset: Assets.assetsDropIcon,
+              iconAsset: Assets.dropIcon,
             ),
           ],
         ),

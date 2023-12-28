@@ -6,7 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 // Project imports:
-import 'package:mangadex/infrastructure/mangadex_assets.dart';
+import 'package:mangadex/infrastructure/assets.gen.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 import 'package:mangadex/widgets/media_query_builder.dart';

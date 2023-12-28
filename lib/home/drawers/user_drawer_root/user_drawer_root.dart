@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
 // Project imports:
-import 'package:mangadex/infrastructure/mangadex_assets.dart';
+import 'package:mangadex/infrastructure/assets.gen.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/router/user_drawer_router.gr.dart';
 import 'package:mangadex/widgets/svg_icon_button.dart';
@@ -56,7 +56,7 @@ class DrawerLeadingButton extends StatelessWidget {
       return Row(
         children: [
           SvgIconButton(
-            asset: Assets.assetsBackIcon,
+            asset: Assets.backIcon,
             onPressed: () => context.innerRouterOf(UserDrawerRootRoute.name)?.pop(),
           ),
           Text(
@@ -68,7 +68,7 @@ class DrawerLeadingButton extends StatelessWidget {
     }
 
     return SvgIconButton(
-      asset: Assets.assetsCloseIcon,
+      asset: Assets.closeIcon,
       onPressed: () => Scaffold.of(context).closeEndDrawer(),
     );
   }

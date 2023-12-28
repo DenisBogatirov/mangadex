@@ -6,7 +6,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 // Project imports:
-import 'package:mangadex/infrastructure/mangadex_assets.dart';
+import 'package:mangadex/infrastructure/assets.gen.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/router/router.gr.dart';
 
@@ -28,13 +28,13 @@ class AppBarLogo extends StatelessWidget {
       },
       child: Row(
         children: [
-          SvgPicture.asset(Assets.assetsMangadexLogo),
+          SvgPicture.asset(Assets.mangadexLogo),
           VerticalDivider(width: dividerWidth),
           Expanded(
             child: Align(
               alignment: Alignment.centerLeft,
               child: SvgPicture.asset(
-                Assets.assetsMangadexWordmark,
+                Assets.mangadexWordmark,
                 colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
                 fit: BoxFit.contain,
               ),

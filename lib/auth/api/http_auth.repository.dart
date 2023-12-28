@@ -33,8 +33,8 @@ class HttpAuthRepository implements AuthRepository {
   @override
   Future<void> signInWith(SignInPayload payload) async {
     switch (payload.runtimeType) {
-      case UsernamePayload:
-        return _signInWithUsername(payload as UsernamePayload);
+      case UsernamePayload p:
+        return _signInWithUsername(p);
       default:
         throw UnimplementedError();
     }
@@ -54,7 +54,7 @@ class HttpAuthRepository implements AuthRepository {
       if (payload.rememberMe) {
         _storeInteractor.setRefreshToken(response.token.refresh);
       }
-    } on DioError catch(e) {
+    } on DioException catch(e) {
       if (e.response?.statusCode == HttpStatus.unauthorized) {
         throw WrongSignInCredentialsException();
       }

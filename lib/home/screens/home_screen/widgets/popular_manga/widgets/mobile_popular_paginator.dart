@@ -22,7 +22,7 @@ class _PopularPaginatorMobile extends StatelessWidget {
           onTap: onPrev,
           child: _PaginatorItemWrapperMobile(
             child: SvgIcon(
-              asset: Assets.assetsChevronLeft,
+              asset: Assets.chevronLeft,
               color: color,
             ),
           ),
@@ -43,7 +43,7 @@ class _PopularPaginatorMobile extends StatelessWidget {
           onTap: onNext,
           child: _PaginatorItemWrapperMobile(
             child: SvgIcon(
-              asset: Assets.assetsChevronRight,
+              asset: Assets.chevronRight,
               color: color,
             ),
           ),

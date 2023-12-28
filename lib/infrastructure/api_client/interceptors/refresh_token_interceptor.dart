@@ -29,7 +29,7 @@ class RefreshTokenInterceptor extends QueuedInterceptor {
   }
 
   @override
-  Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
+  Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == HttpStatus.unauthorized) {
       try {
         AuthToken token = await _getAuthTokenUseCase();
@@ -60,7 +60,7 @@ class RefreshTokenInterceptor extends QueuedInterceptor {
         ),
       );
       return handler.resolve(response);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return handler.next(e);
     }
   }

@@ -6,7 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 // Project imports:
-import 'package:mangadex/infrastructure/mangadex_assets.dart';
+import 'package:mangadex/infrastructure/assets.gen.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 
@@ -26,7 +26,7 @@ class AuthAppLogo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset(
-            Assets.assetsFavicon,
+            Assets.favicon,
             width: 48,
           ),
           VerticalDivider(

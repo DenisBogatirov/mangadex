@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:mangadex/infrastructure/mangadex_assets.dart';
+import 'package:mangadex/infrastructure/assets.gen.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/widgets/svg_icon.dart';
 
@@ -28,7 +28,7 @@ class SearchIcon extends StatelessWidget {
             ),
           ),
           child: const SvgIcon(
-            asset: Assets.assetsSearchIcon,
+            asset: Assets.searchIcon,
           ),
         ),
       ),

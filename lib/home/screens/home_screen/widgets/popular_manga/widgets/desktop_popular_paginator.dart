@@ -28,7 +28,7 @@ class _PopularPaginatorDesktop extends StatelessWidget {
             child: Material(
               type: MaterialType.transparency,
               child: SvgIconButton(
-                asset: Assets.assetsChevronLeft,
+                asset: Assets.chevronLeft,
                 onPressed: onPrev,
               ),
             ),
@@ -37,7 +37,7 @@ class _PopularPaginatorDesktop extends StatelessWidget {
             child: Material(
               type: MaterialType.transparency,
               child: SvgIconButton(
-                asset: Assets.assetsChevronRight,
+                asset: Assets.chevronRight,
                 onPressed: onNext,
               ),
             ),

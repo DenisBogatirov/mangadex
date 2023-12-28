@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 // Project imports:
 import 'package:mangadex/home/drawers/widgets/user_avatar.dart';
-import 'package:mangadex/infrastructure/mangadex_assets.dart';
+import 'package:mangadex/infrastructure/assets.gen.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/user/domain/user.dart';
 import 'package:mangadex/user/utils/current_user_cubit.dart';
@@ -39,7 +39,7 @@ class MangaDexAppBar extends StatelessWidget implements PreferredSizeWidget {
         shadowColor: context.theme.appBarTheme.shadowColor?.withOpacity(opacity),
         backgroundColor: context.theme.appBarTheme.backgroundColor?.withOpacity(opacity),
         leading: SvgIconButton(
-          asset: Assets.assetsMenuIcon,
+          asset: Assets.menuIcon,
           onPressed: () => scaffold.openDrawer(),
         ),
         title: const AppBarLogo(),
