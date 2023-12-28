@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mangadex/infrastructure/mangadex_theme.dart';
 import 'package:mangadex/infrastructure/translations/locale_keys.g.dart';
 import 'package:mangadex/widgets/manga/manga_backdrop.dart';
-import 'package:mangadex/widgets/media_query_builder.dart';
 import 'popular_manga_cubit.dart';
 import 'widgets/popular_manga_tile.dart';
 import 'widgets/popular_paginator.dart';
