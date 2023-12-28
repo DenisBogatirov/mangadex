@@ -33,26 +33,24 @@ class _PopularMangaState extends State<PopularManga> {
       maxHeight: 352 + MediaQuery.of(context).viewPadding.top,
       child: Stack(
         children: [
-          if (MediaQuery.of(context).size.width < MediaQueryStop.tablet.stop) ...{
-            Positioned.fill(
-              child: BlocBuilder<PopularMangaCubit, PopularMangaState>(builder: (context, state) {
-                return switch (state) {
-                  PopularMangaLoading() => const SizedBox.shrink(),
-                  PopularMangaReady(manga: final mangaList) => PageView.builder(
-                      pageSnapping: false,
-                      onPageChanged: _onPageChanged,
-                      controller: _backDropController,
-                      itemBuilder: (context, index) {
-                        final manga = mangaList[index % 10];
+          Positioned.fill(
+            child: BlocBuilder<PopularMangaCubit, PopularMangaState>(builder: (context, state) {
+              return switch (state) {
+                PopularMangaLoading() => const SizedBox.shrink(),
+                PopularMangaReady(manga: final mangaList) => PageView.builder(
+                    pageSnapping: false,
+                    onPageChanged: _onPageChanged,
+                    controller: _backDropController,
+                    itemBuilder: (context, index) {
+                      final manga = mangaList[index % 10];
 
-                        return MangaBackdrop(manga: manga);
-                      },
-                    ),
-                };
-              }),
-            ),
-            const _BackdropGradient()
-          },
+                      return MangaBackdrop(manga: manga);
+                    },
+                  ),
+              };
+            }),
+          ),
+          const _BackdropGradient(),
           Positioned.fill(
             top: MediaQuery.of(context).viewPadding.top + kToolbarHeight,
             child: Column(
@@ -76,12 +74,7 @@ class _PopularMangaState extends State<PopularManga> {
                         PopularMangaReady(manga: final mangaList) => Stack(
                             children: [
                               NotificationListener<ScrollNotification>(
-                                onNotification: (ScrollNotification notification) {
-                                  if (_backDropController.positions.isNotEmpty) {
-                                    _backDropController.jumpTo(notification.metrics.pixels);
-                                  }
-                                  return false;
-                                },
+                                onNotification: _onScrollNotification,
                                 child: PageView.builder(
                                   onPageChanged: _onPageChanged,
                                   controller: _pageController,
@@ -112,6 +105,13 @@ class _PopularMangaState extends State<PopularManga> {
         ],
       ),
     );
+  }
+
+  bool _onScrollNotification(ScrollNotification notification) {
+    if (_backDropController.positions.isNotEmpty) {
+      _backDropController.jumpTo(notification.metrics.pixels);
+    }
+    return false;
   }
 
   void _onPageChanged(page) {
