@@ -51,6 +51,7 @@ class _PopularMangaState extends State<PopularManga> {
                 };
               }),
             ),
+            const _BackdropGradient()
           },
           Positioned.fill(
             top: MediaQuery.of(context).viewPadding.top + kToolbarHeight,
@@ -60,10 +61,11 @@ class _PopularMangaState extends State<PopularManga> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(
-                    LocaleKeys.popular.tr(),
+                    LocaleKeys.popularNewTitles.tr(),
                     style: context.theme.textTheme.titleLarge,
                   ),
                 ),
+                const Divider(),
                 Expanded(
                   child: BlocBuilder<PopularMangaCubit, PopularMangaState>(
                     builder: (context, state) {
@@ -116,5 +118,29 @@ class _PopularMangaState extends State<PopularManga> {
     setState(() {
       _page = (page % 10) + 1;
     });
+  }
+}
+
+class _BackdropGradient extends StatelessWidget {
+  const _BackdropGradient();
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned.fill(
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              context.theme.colorScheme.background,
+              context.theme.colorScheme.background.withOpacity(0.5),
+              context.theme.colorScheme.background.withOpacity(0.5),
+              context.theme.colorScheme.background,
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

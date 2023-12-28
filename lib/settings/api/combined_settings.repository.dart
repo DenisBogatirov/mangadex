@@ -96,9 +96,13 @@ class CombinedSettingsRepository implements SettingsRepository {
 
   Future<void> _saveSettings() async {
     final settings = (await _isar.settings.get(SettingsWrapperDTO.constantId))!;
-    await _settingsClient.saveSettings(settings.copyWith(
-      updatedAt: DateTime.now(),
-    ));
+    if (await _authRepository.isSignedIn()) {
+      await _settingsClient.saveSettings(
+        settings.copyWith(
+          updatedAt: DateTime.now(),
+        ),
+      );
+    }
   }
 
   void dispose() {
